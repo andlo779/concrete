@@ -4,17 +4,15 @@ import {
   NestModule,
   ValidationPipe,
 } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { APP_PIPE } from '@nestjs/core';
 import { RequestResponseLoggerMiddleware } from './middleware/request-response-logger.middleware';
 import { ConfigModule } from '@nestjs/config';
+import { HealthcheckModule } from './healthcheck/healthcheck.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true })],
-  controllers: [AppController],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), HealthcheckModule],
+  controllers: [],
   providers: [
-    AppService,
     {
       provide: APP_PIPE,
       useClass: ValidationPipe,
