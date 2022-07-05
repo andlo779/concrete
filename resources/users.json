@@ -1,0 +1,12 @@
+{
+  "userId": "1",
+  "name": "andreas",
+  "email": "test@test.com",
+  "password": "123456789"
+}
+{
+  "userId": "2",
+  "name": "johan",
+  "email": "testXX@test.com",
+  "password": "123456789"
+}
