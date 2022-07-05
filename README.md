@@ -46,7 +46,8 @@ Example .env file is committed in repository.
 ENV variables will override .env file.
 
 ## Database
-This project is set up to use MongoDb as database. In the sourcecode data files are provided to populate the database to be able to run the application.
+This project is set up to use MongoDb as database. In the sourcecode data files are provided to populate the database to
+be able to run the application. The default password for all users is: _123456789_
 
 ### How to import user data into MongoDb in Docker container running locally:
 _service_mongo_1_ should be replaced with whatever your container is called.
@@ -61,8 +62,8 @@ mongoimport -u root -p password --authenticationDatabase admin -d concrete -c us
 
 ## Backlog
 * Authentication
-  * Users in DB
-  * Passwords hashed
+  * ~~Users in DB~~
+  * ~~Passwords hashed~~
   * Use authentication header for basic auth
   * Refresh token mechanism
     * Return token with one time usage (??)

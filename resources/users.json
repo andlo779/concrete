@@ -2,11 +2,11 @@
   "userId": "1",
   "name": "andreas",
   "email": "test@test.com",
-  "password": "123456789"
+  "password": "$2b$10$gV6AW.0vuzeIDW4p2IQDW.d7Wn0JB/mvdvZMOZoHb20hBaSSqlYtq"
 }
 {
   "userId": "2",
   "name": "johan",
   "email": "testXX@test.com",
-  "password": "123456789"
+  "password": "$2b$10$gV6AW.0vuzeIDW4p2IQDW.d7Wn0JB/mvdvZMOZoHb20hBaSSqlYtq"
 }
