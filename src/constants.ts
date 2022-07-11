@@ -10,3 +10,4 @@ export const MONGO_CLIENT = 'MongoClient';
 
 /* MONGODB CONSTANTS */
 export const MONGO_COLLECTION_USERS = 'users';
+export const MONGO_COLLECTION_RECORDS_COLLECTION = 'recordsCollection';

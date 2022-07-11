@@ -78,14 +78,17 @@ mongoimport -u root -p password --authenticationDatabase admin -d concrete -c us
 * ~~Update Nestjs to v 9~~
 * Implement own ExceptionHandler that returns a ErrorMessage Object that can be referenced in Swagger so error response 
 type can be seen in Swagger server or json contract
-* https
 * Tests 
   * Refactor unit tests of services to use _jest-mock-extended_ library for mocking
 * Record domain
     * Link images
     * Wishlist
+    * Service functionality:
+  * Move from wishlist to collection (with option to add _conditions_)
+  * List all collections and wishlist belonging to one user (might be part of the user model)
 * HealthCheck
   * Add external connection status to /status call (is DB there?)
+* https
 * Authorization
   * Normal user
   * Admin user

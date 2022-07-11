@@ -10,6 +10,7 @@ import { ConfigModule } from '@nestjs/config';
 import { HealthcheckModule } from './healthcheck/healthcheck.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { RecordsModule } from './records/records.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { UsersModule } from './users/users.module';
     HealthcheckModule,
     AuthModule,
     UsersModule,
+    RecordsModule,
   ],
   controllers: [],
   providers: [

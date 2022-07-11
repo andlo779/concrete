@@ -1,7 +1,7 @@
 import { User } from './user.entity';
 import { UserResponse } from './dto/user.response';
 
-export class UserMapper {
+export class UsersMapper {
   static domainToDto(user: User): UserResponse {
     const userDto = new UserResponse();
     userDto.id = user.userId;

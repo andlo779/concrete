@@ -15,8 +15,16 @@ export class UsersService {
   private saltRounds = 10;
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  async getOne(username: string): Promise<User> {
-    const user = await this.usersRepository.findOneByUserName(username);
+  async findWithUsername(username: string): Promise<User> {
+    const user = await this.usersRepository.findOneByUsername(username);
+    if (!user) {
+      throw new NotFoundException();
+    }
+    return user;
+  }
+
+  async findWithId(id: string): Promise<User> {
+    const user = await this.usersRepository.findOneById(id);
     if (!user) {
       throw new NotFoundException();
     }
@@ -45,7 +53,7 @@ export class UsersService {
     oldPassword: string,
     newPassword: string,
   ) {
-    const user = await this.usersRepository.findOneByUserName(username);
+    const user = await this.usersRepository.findOneById(username);
     if (!user) {
       throw new NotFoundException();
     }

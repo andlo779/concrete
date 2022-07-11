@@ -19,7 +19,7 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { UserMapper } from './user.mapper';
+import { UsersMapper } from './users.mapper';
 import { UserResponse } from './dto/user.response';
 import { CreateUserRequest } from './dto/create-user.request';
 import { ChangePasswordRequest } from './dto/change-password.request';
@@ -41,7 +41,7 @@ export class UsersController {
       body.email,
       body.password,
     );
-    return UserMapper.domainToDto(user);
+    return UsersMapper.domainToDto(user);
   }
 
   @ApiOkResponse({ type: UserResponse, isArray: true })
@@ -50,17 +50,17 @@ export class UsersController {
   @Get()
   async getAllUsers(): Promise<UserResponse[]> {
     const users = await this.usersService.getAll();
-    return users.map(UserMapper.domainToDto);
+    return users.map(UsersMapper.domainToDto);
   }
 
   @ApiOkResponse({ type: UserResponse })
   @ApiNotFoundResponse({ description: 'No user with given username exists.' })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @Get(':username')
-  async getUser(@Param('username') username: string): Promise<UserResponse> {
-    const user = await this.usersService.getOne(username);
-    return UserMapper.domainToDto(user);
+  @Get(':userid')
+  async getUser(@Param('userid') userid: string): Promise<UserResponse> {
+    const user = await this.usersService.findWithId(userid);
+    return UsersMapper.domainToDto(user);
   }
 
   @ApiOkResponse({ description: 'Password have been updated successfully.' })
