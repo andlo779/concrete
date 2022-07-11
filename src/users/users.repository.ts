@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { MONGO_CLIENT, MONGO_COLLECTION_USERS } from '../constants';
 import { Collection, Db } from 'mongodb';
 import { User } from './user.entity';
+import { UserMapper } from './user.mapper';
 
 @Injectable()
 export class UsersRepository {
@@ -26,5 +27,14 @@ export class UsersRepository {
       return user;
     }
     return Promise.reject();
+  }
+
+  async update(user: User): Promise<User> {
+    const result = await this.collection.findOneAndUpdate(
+      { name: user.name },
+      { $set: { ...user } },
+      { returnDocument: 'after' },
+    );
+    return UserMapper.documentToDomain(result.value);
   }
 }

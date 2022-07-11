@@ -45,6 +45,9 @@ Example .env file is committed in repository.
 
 ENV variables will override .env file.
 
+## Open API Specification
+A Swagger server is hosted within the app and can be reached via _/api_ or the json schema via _/api-json_
+
 ## Database
 This project is set up to use MongoDb as database. In the sourcecode data files are provided to populate the database to
 be able to run the application. The default password for all users is: _123456789_
@@ -64,23 +67,28 @@ mongoimport -u root -p password --authenticationDatabase admin -d concrete -c us
 * Authentication
   * ~~Users in DB~~
   * ~~Passwords hashed~~
-  * Use authentication header for basic auth
+  * ~~Use authentication header for basic auth~~
+  * Identify users via id....
   * Refresh token mechanism
-    * Return token with one time usage (??)
+    * Return token with one time usage (?? (state of token in db))
     * End-point to exchange refresh token to an normal token.... 
 * Open API Specification
-  * Swagger server
+  * ~~Swagger server~~
+  * Add ApiProperties on all DTO's
+* Update Nestjs to v 9
+* Implement own ExceptionHandler that returns a ErrorMessage Object that can be referenced in Swagger so error response 
+type can be seen in Swagger server or json contract
 * https
 * Tests 
   * Refactor unit tests of services to use _jest-mock-extended_ library for mocking
 * Record domain
     * Link images
     * Wishlist
+* HealthCheck
+  * Add external connection status to /status call (is DB there?)
 * Authorization
   * Normal user
   * Admin user
-
-
 
 ## Author
 [Andreas Lord](mailto:andlo779@gmail.com) 

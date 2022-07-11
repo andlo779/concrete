@@ -1,4 +1,10 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import { UsersRepository } from './users.repository';
 import { User } from './user.entity';
 import * as bcrypt from 'bcrypt';
@@ -10,20 +16,47 @@ export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
   async getOne(username: string): Promise<User> {
-    const result = await this.usersRepository.findOneByUserName(username);
-    if (!result) {
+    const user = await this.usersRepository.findOneByUserName(username);
+    if (!user) {
       throw new NotFoundException();
     }
-    return result;
+    return user;
   }
 
-  async getAll(): Promise<any[]> {
+  async getAll(): Promise<User[]> {
     return await this.usersRepository.findAll();
   }
 
-  async create(user: User): Promise<User> {
-    user.password = await this.hashPassword(user.password);
+  async create(
+    username: string,
+    email: string,
+    password: string,
+  ): Promise<User> {
+    const user = new User();
+    user.name = username;
+    user.email = email;
+    user.password = await this.hashPassword(password);
+    user.createdAt = new Date();
     return await this.usersRepository.insert(user);
+  }
+
+  async changePassword(
+    username: string,
+    oldPassword: string,
+    newPassword: string,
+  ) {
+    const user = await this.usersRepository.findOneByUserName(username);
+    if (!user) {
+      throw new NotFoundException();
+    }
+    if (!(await bcrypt.compare(oldPassword, user.password))) {
+      throw new ForbiddenException();
+    }
+    user.password = await this.hashPassword(newPassword);
+    const result = this.usersRepository.update(user);
+    if (!result) {
+      throw new InternalServerErrorException();
+    }
   }
 
   private async hashPassword(password: string): Promise<string> {

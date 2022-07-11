@@ -1,16 +1,20 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { Controller, Get } from '@nestjs/common';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { PingResponse } from './dto/ping.response';
+import { Status, StatusResponse } from './dto/status.response';
 
+@ApiTags('healthcheck')
 @Controller('healthcheck')
 export class HealthcheckController {
+  @ApiOkResponse({ type: PingResponse })
   @Get('ping')
-  ping() {
-    return 'pong';
+  async ping(): Promise<PingResponse> {
+    return new PingResponse('pong');
   }
 
-  @UseGuards(JwtAuthGuard)
+  @ApiOkResponse({ type: StatusResponse })
   @Get('status')
-  status() {
-    return 'OK';
+  async status(): Promise<StatusResponse> {
+    return new StatusResponse(Status.OK);
   }
 }
