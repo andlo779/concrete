@@ -59,7 +59,7 @@ _service_mongo_1_ should be replaced with whatever your container is called.
 docker cp resources/users.json service_mongo_1:/tmp/users.json
 # login to container with bash
 docker docker exec -it service_mongo_1 bash
-# run mongoimport with credentials if needed
+# run mongoimport (with credentials if needed)
 mongoimport -u root -p password --authenticationDatabase admin -d concrete -c users --type=json --file /tmp/users.json
 ```
 
@@ -74,8 +74,8 @@ mongoimport -u root -p password --authenticationDatabase admin -d concrete -c us
     * End-point to exchange refresh token to an normal token.... 
 * Open API Specification
   * ~~Swagger server~~
-  * Add ApiProperties on all DTO's
-* Update Nestjs to v 9
+  * ~~Add ApiProperties on all DTO's~~
+* ~~Update Nestjs to v 9~~
 * Implement own ExceptionHandler that returns a ErrorMessage Object that can be referenced in Swagger so error response 
 type can be seen in Swagger server or json contract
 * https
