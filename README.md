@@ -48,6 +48,10 @@ ENV variables will override .env file.
 ## Open API Specification
 A Swagger server is hosted within the app and can be reached via _/api_ or the json schema via _/api-json_
 
+## Authentication
+Authentication mechanism is supported within the application. Users need to obtain a token via basic authentication to 
+be able to use the REST services offered by the application.  
+
 ## Database
 This project is set up to use MongoDb as database. In the sourcecode data files are provided to populate the database to
 be able to run the application. The default password for all users is: _123456789_
@@ -64,34 +68,7 @@ mongoimport -u root -p password --authenticationDatabase admin -d concrete -c us
 ```
 
 ## Backlog
-* Authentication
-  * ~~Users in DB~~
-  * ~~Passwords hashed~~
-  * ~~Use authentication header for basic auth~~
-  * Identify users via id....
-  * Refresh token mechanism
-    * Return token with one time usage (?? (state of token in db))
-    * End-point to exchange refresh token to an normal token.... 
-* Open API Specification
-  * ~~Swagger server~~
-  * ~~Add ApiProperties on all DTO's~~
-* ~~Update Nestjs to v 9~~
-* Implement own ExceptionHandler that returns a ErrorMessage Object that can be referenced in Swagger so error response 
-type can be seen in Swagger server or json contract
-* Tests 
-  * Refactor unit tests of services to use _jest-mock-extended_ library for mocking
-* Record domain
-    * Link images
-    * Wishlist
-    * Service functionality:
-  * Move from wishlist to collection (with option to add _conditions_)
-  * List all collections and wishlist belonging to one user (might be part of the user model)
-* HealthCheck
-  * Add external connection status to /status call (is DB there?)
-* https
-* Authorization
-  * Normal user
-  * Admin user
+Official backlog can be found in [GitHub Projects](https://github.com/users/andlo779/projects/2/views/2)
 
 ## Author
 [Andreas Lord](mailto:andlo779@gmail.com) 
