@@ -1,30 +1,30 @@
-import { RecordsCollection } from './entities/records-collection.entity';
+import { RecordsCollection } from './model/records-collection.model';
 import { RecordsCollectionResponse } from './dto/records-collection.response';
-import { RecordInCollection } from './entities/record-in-collection.entity';
-import { RecordsInCollectionResponse } from './dto/records-in-collection.response';
+import { RecordResponse } from './dto/record.response';
+import { Record } from './model/record.model';
 
 export class RecordsCollectionMapper {
-  static domainToDto(collection: RecordsCollection): RecordsCollectionResponse {
+  static modelToDto(collection: RecordsCollection): RecordsCollectionResponse {
     const dto = new RecordsCollectionResponse();
     dto.id = collection.id;
+    dto.name = collection.name;
     dto.userId = collection.userId;
-    dto.records = collection.records.map(this.recordInCollectionToDto);
+    dto.records = collection.records.map(this.recordToDto);
     return dto;
   }
 
-  static documentToDomain(doc: any): RecordsCollection {
+  static documentToModel(doc: any): RecordsCollection {
     const recordCollection = new RecordsCollection();
     recordCollection.id = doc.id;
+    recordCollection.name = doc.name;
     recordCollection.userId = doc.userId;
     recordCollection.createdAt = doc.createdAt;
     recordCollection.records = doc.records.map(this.recordDocToDomain);
     return recordCollection;
   }
 
-  private static recordInCollectionToDto(
-    record: RecordInCollection,
-  ): RecordsInCollectionResponse {
-    const dto = new RecordsInCollectionResponse();
+  private static recordToDto(record: Record): RecordResponse {
+    const dto = new RecordResponse();
     dto.id = record.id;
     dto.artist = record.artist;
     dto.name = record.name;
@@ -35,14 +35,15 @@ export class RecordsCollectionMapper {
     return dto;
   }
 
-  private static recordDocToDomain(doc: any): RecordInCollection {
-    const record = new RecordInCollection();
+  private static recordDocToDomain(doc: any): Record {
+    const record = new Record();
     record.id = doc.id;
     record.name = doc.name;
     record.artist = doc.artist;
     record.productionYear = doc.productionYear;
     record.printedYear = doc.printedYear;
     record.imageUrl = doc.imageUrl;
+    record.addedAt = doc.addedAt;
     return record;
   }
 }

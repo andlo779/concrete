@@ -1,3 +1,5 @@
+import { Conditions } from './conditions.model';
+
 export class Record {
   id: string;
   artist: string;
@@ -5,4 +7,6 @@ export class Record {
   productionYear: string;
   printedYear: string;
   imageUrl: string;
+  //conditions: Conditions;
+  addedAt: Date;
 }

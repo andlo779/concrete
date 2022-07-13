@@ -22,9 +22,9 @@ import { AddRecordRequest } from './dto/add-record.request';
 
 @ApiTags('records')
 @ApiConsumes('application/json')
-@Controller('records')
-export class RecordsController {
-  logger = new Logger(RecordsController.name);
+@Controller('records-collection')
+export class RecordsCollectionController {
+  logger = new Logger(RecordsCollectionController.name);
   constructor(private readonly recordService: RecordsService) {}
 
   @ApiOkResponse({ type: RecordsCollectionResponse })
@@ -34,7 +34,7 @@ export class RecordsController {
     @Param('collectionId') collectionId: string,
   ): Promise<RecordsCollectionResponse> {
     const collection = await this.recordService.getCollection(collectionId);
-    return RecordsCollectionMapper.domainToDto(collection);
+    return RecordsCollectionMapper.modelToDto(collection);
   }
 
   @ApiCreatedResponse({ type: RecordsCollectionResponse })
@@ -44,8 +44,9 @@ export class RecordsController {
   ): Promise<RecordsCollectionResponse> {
     const collection = await this.recordService.createCollection(
       request.userId,
+      request.name,
     );
-    return RecordsCollectionMapper.domainToDto(collection);
+    return RecordsCollectionMapper.modelToDto(collection);
   }
 
   @ApiOkResponse({ type: RecordsCollectionResponse })
@@ -65,6 +66,6 @@ export class RecordsController {
         printedYear: request.printedYear,
       },
     );
-    return RecordsCollectionMapper.domainToDto(collection);
+    return RecordsCollectionMapper.modelToDto(collection);
   }
 }

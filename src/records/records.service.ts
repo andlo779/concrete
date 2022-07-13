@@ -1,10 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { RecordsCollectionRepository } from './records-collection.repository';
-import { RecordsCollection } from './entities/records-collection.entity';
-import { RecordsWishlist } from './entities/records.wishlist';
+import { RecordsCollection } from './model/records-collection.model';
 import { randomUUID } from 'crypto';
-import { RecordInCollection } from './entities/record-in-collection.entity';
-import { Record } from './entities/record.entity';
+import { Record } from './model/record.model';
 
 @Injectable()
 export class RecordsService {
@@ -12,25 +10,18 @@ export class RecordsService {
     private readonly recordsCollectionRepository: RecordsCollectionRepository,
   ) {}
 
-  async createCollection(userId: string): Promise<RecordsCollection> {
+  async createCollection(
+    userId: string,
+    name: string,
+  ): Promise<RecordsCollection> {
     const collection = new RecordsCollection();
     collection.id = randomUUID();
     collection.userId = userId;
-    collection.records = new Array<RecordInCollection>();
+    collection.name = name;
+    collection.records = new Array<Record>();
     collection.createdAt = new Date();
 
     return await this.recordsCollectionRepository.insert(collection);
-  }
-
-  async createWishlist(userId: string): Promise<RecordsWishlist> {
-    const wishlist = new RecordsWishlist();
-    wishlist.id = randomUUID();
-    wishlist.userId = userId;
-    wishlist.records = new Array<Record>();
-    wishlist.createdAt = new Date();
-
-    //Todo: Save wishlist in DB!
-    return wishlist;
   }
 
   async getCollection(id: string): Promise<RecordsCollection> {
@@ -39,10 +30,6 @@ export class RecordsService {
       return collection;
     }
     throw new NotFoundException();
-  }
-
-  async getWishlist(id: string): Promise<RecordsWishlist> {
-    return Promise.reject();
   }
 
   async addRecordToCollection(
@@ -62,7 +49,7 @@ export class RecordsService {
       throw new NotFoundException();
     }
 
-    const newRecord = new RecordInCollection();
+    const newRecord = new Record();
     newRecord.id = randomUUID();
     newRecord.name = record.name;
     newRecord.artist = record.artist;
@@ -73,12 +60,5 @@ export class RecordsService {
 
     collection.records.push(newRecord);
     return await this.recordsCollectionRepository.update(collection);
-  }
-
-  async addRecordToWishlist(
-    wishlistId: string,
-    record: Record,
-  ): Promise<RecordsWishlist> {
-    return Promise.reject();
   }
 }

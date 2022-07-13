@@ -6,7 +6,7 @@ import {
 import { Collection, Db } from 'mongodb';
 import { RepositoryInterface } from '../repository.interface';
 import { RecordsCollectionMapper } from './records-collection.mapper';
-import { RecordsCollection } from './entities/records-collection.entity';
+import { RecordsCollection } from './model/records-collection.model';
 
 @Injectable()
 export class RecordsCollectionRepository
@@ -39,6 +39,6 @@ export class RecordsCollectionRepository
       { $set: { ...record } },
       { returnDocument: 'after' },
     );
-    return RecordsCollectionMapper.documentToDomain(result.value);
+    return RecordsCollectionMapper.documentToModel(result.value);
   }
 }
