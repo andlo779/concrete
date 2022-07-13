@@ -6,8 +6,9 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
-import { User } from './user.entity';
+import { User } from './user.model';
 import * as bcrypt from 'bcrypt';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class UsersService {
@@ -41,6 +42,7 @@ export class UsersService {
     password: string,
   ): Promise<User> {
     const user = new User();
+    user.userId = randomUUID();
     user.name = username;
     user.email = email;
     user.password = await this.hashPassword(password);

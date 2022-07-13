@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { MONGO_CLIENT, MONGO_COLLECTION_USERS } from '../constants';
 import { Collection, Db } from 'mongodb';
-import { User } from './user.entity';
+import { User } from './user.model';
 import { UsersMapper } from './users.mapper';
 import { RepositoryInterface } from '../repository.interface';
 
@@ -28,7 +28,6 @@ export class UsersRepository implements RepositoryInterface<User> {
   async insert(user: User): Promise<User> {
     const result = await this.collection.insertOne(user);
     if (result.acknowledged) {
-      user._id = result.insertedId;
       return user;
     }
     return Promise.reject();

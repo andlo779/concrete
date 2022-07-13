@@ -1,4 +1,4 @@
-import { User } from './user.entity';
+import { User } from './user.model';
 import { UserResponse } from './dto/user.response';
 
 export class UsersMapper {
@@ -12,7 +12,7 @@ export class UsersMapper {
 
   static documentToDomain(doc: any): User {
     const user = new User();
-    user._id = doc._id;
+    // user._id = doc._id;
     user.userId = doc.userId;
     user.name = doc.name;
     user.email = doc.email;
