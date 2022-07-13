@@ -61,4 +61,18 @@ export class RecordsService {
     collection.records.push(newRecord);
     return await this.recordsCollectionRepository.update(collection);
   }
+
+  async changeCollectionName(
+    collectionId: string,
+    newName: string,
+  ): Promise<RecordsCollection> {
+    const collection = await this.recordsCollectionRepository.findOneById(
+      collectionId,
+    );
+    if (!collection) {
+      throw new NotFoundException();
+    }
+    collection.name = newName;
+    return await this.recordsCollectionRepository.update(collection);
+  }
 }

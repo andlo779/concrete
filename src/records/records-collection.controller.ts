@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { RecordsService } from './records.service';
 import {
+  ApiBadRequestResponse,
   ApiConsumes,
   ApiCreatedResponse,
   ApiNotFoundResponse,
@@ -19,6 +20,7 @@ import { RecordsCollectionResponse } from './dto/records-collection.response';
 import { RecordsCollectionMapper } from './records-collection.mapper';
 import { CreateCollectionRequest } from './dto/create-collection.request';
 import { AddRecordRequest } from './dto/add-record.request';
+import { ChangeNameRequest } from './dto/change-name.request';
 
 @ApiTags('records')
 @ApiConsumes('application/json')
@@ -38,6 +40,7 @@ export class RecordsCollectionController {
   }
 
   @ApiCreatedResponse({ type: RecordsCollectionResponse })
+  @ApiBadRequestResponse()
   @Post()
   async createCollection(
     @Body() request: CreateCollectionRequest,
@@ -50,6 +53,7 @@ export class RecordsCollectionController {
   }
 
   @ApiOkResponse({ type: RecordsCollectionResponse })
+  @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   @Patch(':collectionId')
   async addRecordToCollection(
@@ -65,6 +69,21 @@ export class RecordsCollectionController {
         productionYear: request.productionYear,
         printedYear: request.printedYear,
       },
+    );
+    return RecordsCollectionMapper.modelToDto(collection);
+  }
+
+  @ApiOkResponse({ type: RecordsCollectionResponse })
+  @ApiBadRequestResponse()
+  @ApiNotFoundResponse()
+  @Patch(':collectionId/name')
+  async changeName(
+    @Param('collectionId') collectionId: string,
+    @Body() request: ChangeNameRequest,
+  ): Promise<RecordsCollectionResponse> {
+    const collection = await this.recordService.changeCollectionName(
+      collectionId,
+      request.newName,
     );
     return RecordsCollectionMapper.modelToDto(collection);
   }
