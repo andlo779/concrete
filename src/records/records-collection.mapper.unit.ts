@@ -30,7 +30,7 @@ describe('RecordCollectionMapper', () => {
       const record = recordsCollection.records.pop();
 
       const result = RecordsCollectionMapper.modelToDto(recordsCollection);
-      const rr = result.records.pop();
+      const mappedRecord = result.records.pop();
 
       expect(result).toBeDefined();
       expect(result.name).toBe(recordsCollection.name);
@@ -38,13 +38,13 @@ describe('RecordCollectionMapper', () => {
       expect(result.userId).toBe(recordsCollection.userId);
       expect(result.records.length).toBe(1);
 
-      expect(rr.id).toBe(record.id);
-      expect(rr.name).toBe(record.name);
-      expect(rr.artist).toBe(record.artist);
-      expect(rr.printedYear).toBe(record.printedYear);
-      expect(rr.productionYear).toBe(record.productionYear);
-      expect(rr.imageUrl).toBe(record.imageUrl);
-      expect(rr.addedAt).toBe(record.addedAt);
+      expect(mappedRecord.id).toBe(record.id);
+      expect(mappedRecord.name).toBe(record.name);
+      expect(mappedRecord.artist).toBe(record.artist);
+      expect(mappedRecord.printedYear).toBe(record.printedYear);
+      expect(mappedRecord.productionYear).toBe(record.productionYear);
+      expect(mappedRecord.imageUrl).toBe(record.imageUrl);
+      expect(mappedRecord.addedAt).toBe(record.addedAt);
     });
   });
 

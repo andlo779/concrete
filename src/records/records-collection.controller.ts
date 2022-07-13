@@ -21,6 +21,7 @@ import { RecordsCollectionMapper } from './records-collection.mapper';
 import { CreateCollectionRequest } from './dto/create-collection.request';
 import { AddRecordRequest } from './dto/add-record.request';
 import { ChangeNameRequest } from './dto/change-name.request';
+import { UpdateRecordRequest } from './dto/update-record.request';
 
 @ApiTags('records')
 @ApiConsumes('application/json')
@@ -62,6 +63,29 @@ export class RecordsCollectionController {
   ): Promise<RecordsCollectionResponse> {
     const collection = await this.recordService.addRecordToCollection(
       collectionId,
+      {
+        name: request.name,
+        artist: request.artist,
+        imageUrl: request.imageUrl,
+        productionYear: request.productionYear,
+        printedYear: request.printedYear,
+      },
+    );
+    return RecordsCollectionMapper.modelToDto(collection);
+  }
+
+  @ApiOkResponse({ type: RecordsCollectionResponse })
+  @ApiBadRequestResponse()
+  @ApiNotFoundResponse()
+  @Patch(':collectionId/records/:recordId')
+  async updateRecordInCollection(
+    @Param('collectionId') collectionId: string,
+    @Param('recordId') recordId: string,
+    @Body() request: UpdateRecordRequest,
+  ): Promise<RecordsCollectionResponse> {
+    const collection = await this.recordService.updateRecordInCollection(
+      collectionId,
+      recordId,
       {
         name: request.name,
         artist: request.artist,

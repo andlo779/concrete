@@ -75,4 +75,53 @@ export class RecordsService {
     collection.name = newName;
     return await this.recordsCollectionRepository.update(collection);
   }
+
+  async updateRecordInCollection(
+    collectionId: string,
+    recordId: string,
+    record: {
+      artist: string;
+      printedYear: string;
+      imageUrl: string;
+      name: string;
+      productionYear: string;
+    },
+  ): Promise<RecordsCollection> {
+    const collection = await this.recordsCollectionRepository.findOneById(
+      collectionId,
+    );
+    if (!collection) {
+      throw new NotFoundException(
+        `No collection found with given collectionId: ${collectionId}`,
+      );
+    }
+    const foundRecord = this.getRecord(recordId, collection.records);
+    if (!foundRecord) {
+      throw new NotFoundException(
+        `No record found with given recordId: ${recordId}`,
+      );
+    }
+
+    if (record.name) {
+      foundRecord.name = record.name;
+    }
+    if (record.artist) {
+      foundRecord.artist = record.artist;
+    }
+    if (record.printedYear) {
+      foundRecord.printedYear = record.printedYear;
+    }
+    if (record.productionYear) {
+      foundRecord.productionYear = record.productionYear;
+    }
+    if (record.imageUrl) {
+      foundRecord.imageUrl = record.imageUrl;
+    }
+
+    return await this.recordsCollectionRepository.update(collection);
+  }
+
+  private getRecord(id: string, records: Array<Record>): Record | undefined {
+    return records.find((r) => r.id === id);
+  }
 }

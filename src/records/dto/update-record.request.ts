@@ -1,22 +1,29 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
-export class AddRecordRequest {
-  @ApiProperty({ type: String, required: true })
+export class UpdateRecordRequest {
+  @ApiProperty({ type: String })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   artist: string;
-  @ApiProperty({ type: String, required: true })
+
+  @ApiProperty({ type: String })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   name: string;
+
   @ApiProperty({ type: String })
   @IsString()
+  @IsOptional()
   productionYear: string;
+
   @ApiProperty({ type: String })
   @IsString()
+  @IsOptional()
   printedYear: string;
+
   @ApiProperty({ type: String })
   @IsString()
+  @IsOptional()
   imageUrl: string;
 }
