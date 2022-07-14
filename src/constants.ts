@@ -7,6 +7,7 @@ export const DATABASE_NAME = 'DATABASE_NAME';
 
 /* PROVIDERS */
 export const MONGO_CLIENT = 'MongoClient';
+export const MONGO_PING_CLIENT = 'MongoPingClient';
 
 /* MONGODB CONSTANTS */
 export const MONGO_COLLECTION_USERS = 'users';
