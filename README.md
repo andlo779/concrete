@@ -4,8 +4,7 @@
 
 ## Description
 
-Private project. Application to handle some private domain such as record collection, via REST interface intended to be 
-consumed by a frontend application. For simplicity in hosting this application will provide its own authentication. 
+Learning project for me to get into the depths of NestJS. Application to handle some private domain such as record collection, via REST interface intended to be consumed by a frontend application. For simplicity in hosting (and me learning Security in NestJS and Passport), this application will provide its own authentication. 
 
 ## Installation
 
