@@ -51,11 +51,11 @@ export class UsersService {
   }
 
   async changePassword(
-    username: string,
+    userId: string,
     oldPassword: string,
     newPassword: string,
   ) {
-    const user = await this.usersRepository.findOneById(username);
+    const user = await this.usersRepository.findOneById(userId);
     if (!user) {
       throw new NotFoundException();
     }

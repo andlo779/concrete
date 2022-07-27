@@ -10,7 +10,7 @@ export class UsersMapper {
     return userDto;
   }
 
-  static documentToDomain(doc: any): User {
+  static documentToModel(doc: any): User {
     const user = new User();
     // user._id = doc._id;
     user.userId = doc.userId;

@@ -86,13 +86,7 @@ export class RecordsCollectionController {
     const collection = await this.recordService.updateRecordInCollection(
       collectionId,
       recordId,
-      {
-        name: request.name,
-        artist: request.artist,
-        imageUrl: request.imageUrl,
-        productionYear: request.productionYear,
-        printedYear: request.printedYear,
-      },
+      request,
     );
     return RecordsCollectionMapper.modelToDto(collection);
   }

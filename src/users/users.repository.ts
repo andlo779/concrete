@@ -39,6 +39,6 @@ export class UsersRepository implements RepositoryInterface<User> {
       { $set: { ...user } },
       { returnDocument: 'after' },
     );
-    return UsersMapper.documentToDomain(result.value);
+    return UsersMapper.documentToModel(result.value);
   }
 }

@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
+  HttpStatus,
   Logger,
   Param,
   Patch,
@@ -15,6 +17,7 @@ import {
   ApiConsumes,
   ApiCreatedResponse,
   ApiForbiddenResponse,
+  ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiTags,
@@ -26,6 +29,7 @@ import { ChangePasswordRequest } from './dto/change-password.request';
 
 @ApiTags('users')
 @ApiConsumes('application/json')
+@UseGuards(JwtAuthGuard)
 @Controller('users')
 export class UsersController {
   logger = new Logger(UsersController.name);
@@ -33,7 +37,6 @@ export class UsersController {
 
   @ApiCreatedResponse({ type: UserResponse })
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
   @Post()
   async createUser(@Body() body: CreateUserRequest): Promise<UserResponse> {
     const user = await this.usersService.create(
@@ -46,7 +49,6 @@ export class UsersController {
 
   @ApiOkResponse({ type: UserResponse, isArray: true })
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
   @Get()
   async getAllUsers(): Promise<UserResponse[]> {
     const users = await this.usersService.getAll();
@@ -54,32 +56,35 @@ export class UsersController {
   }
 
   @ApiOkResponse({ type: UserResponse })
-  @ApiNotFoundResponse({ description: 'No user with given username exists.' })
+  @ApiNotFoundResponse({
+    description: 'No user with given username exists.',
+  })
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
   @Get(':userid')
   async getUser(@Param('userid') userid: string): Promise<UserResponse> {
     const user = await this.usersService.findWithId(userid);
     return UsersMapper.domainToDto(user);
   }
 
-  @ApiOkResponse({ description: 'Password have been updated successfully.' })
+  @ApiNoContentResponse({
+    description: 'Password have been updated successfully.',
+  })
   @ApiNotFoundResponse({ description: 'No user with given username exists.' })
   @ApiForbiddenResponse({
     description:
       'If old password is not correct, this will be sent as response.',
   })
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
-  @Patch(':username/password')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Patch(':userid/password')
   async changePassword(
-    @Param('username') username: string,
-    @Body() body: ChangePasswordRequest,
+    @Param('userid') userId: string,
+    @Body() changePasswordRequest: ChangePasswordRequest,
   ): Promise<any> {
     await this.usersService.changePassword(
-      username,
-      body.oldPassword,
-      body.newPassword,
+      userId,
+      changePasswordRequest.oldPassword,
+      changePasswordRequest.newPassword,
     );
     return Promise.resolve();
   }

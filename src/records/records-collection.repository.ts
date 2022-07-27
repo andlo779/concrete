@@ -12,7 +12,7 @@ import { RecordsCollection } from './model/records-collection.model';
 export class RecordsCollectionRepository
   implements RepositoryInterface<RecordsCollection>
 {
-  private collection: Collection;
+  collection: Collection;
   constructor(@Inject(MONGO_CLIENT) db: Db) {
     this.collection = db.collection(MONGO_COLLECTION_RECORDS_COLLECTION);
   }

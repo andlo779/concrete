@@ -69,5 +69,9 @@ mongoimport -u root -p password --authenticationDatabase admin -d concrete -c us
 ## Backlog
 Official backlog can be found in [GitHub Projects](https://github.com/users/andlo779/projects/2/views/2)
 
+## License
+
+Nest is [MIT licensed](LICENSE.md).
+
 ## Author
 [Andreas Lord](mailto:andlo779@gmail.com) 
