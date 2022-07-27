@@ -71,7 +71,7 @@ Official backlog can be found in [GitHub Projects](https://github.com/users/andl
 
 ## License
 
-Nest is [MIT licensed](LICENSE.md).
+This project is [MIT licensed](LICENSE.md).
 
 ## Author
 [Andreas Lord](mailto:andlo779@gmail.com) 
