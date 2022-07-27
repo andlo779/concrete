@@ -28,9 +28,11 @@ describe('RecordCollectionMapper', () => {
     it('given a correct model when calling function then a correct dto is returned', () => {
       const recordsCollection = generateRecordsCollectionWithOneRecord();
       const record = recordsCollection.records.pop();
+      recordsCollection.records.push(record);
 
       const result = RecordsCollectionMapper.modelToDto(recordsCollection);
       const mappedRecord = result.records.pop();
+      result.records.push(mappedRecord);
 
       expect(result).toBeDefined();
       expect(result.name).toBe(recordsCollection.name);
