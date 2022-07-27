@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { MONGO_CLIENT, MONGO_COLLECTION_USERS } from '../constants';
 import { Collection, Db } from 'mongodb';
-import { User } from './user.model';
+import { User } from './model/user.model';
 import { UsersMapper } from './users.mapper';
 import { RepositoryInterface } from '../repository.interface';
 
@@ -18,11 +18,19 @@ export class UsersRepository implements RepositoryInterface<User> {
   }
 
   async findOneById(id: string): Promise<User> {
-    return await this.collection.findOne<User>({ userId: id });
+    const doc = await this.collection.findOne({ userId: id });
+    if (doc) {
+      return UsersMapper.documentToModel(doc);
+    }
+    await Promise.reject();
   }
 
   async findOneByUsername(username: string): Promise<User> {
-    return await this.collection.findOne<User>({ name: username });
+    const doc = await this.collection.findOne({ name: username });
+    if (doc) {
+      return UsersMapper.documentToModel(doc);
+    }
+    await Promise.reject();
   }
 
   async insert(user: User): Promise<User> {

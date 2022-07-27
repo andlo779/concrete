@@ -6,7 +6,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
-import { User } from './user.model';
+import { User } from './model/user.model';
 import * as bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
 
@@ -46,6 +46,7 @@ export class UsersService {
     user.name = username;
     user.email = email;
     user.password = await this.hashPassword(password);
+    user.twoFactorAuthEnabled = false;
     user.createdAt = new Date();
     return await this.usersRepository.insert(user);
   }
@@ -66,6 +67,33 @@ export class UsersService {
     const result = this.usersRepository.update(user);
     if (!result) {
       throw new InternalServerErrorException();
+    }
+  }
+
+  async enableTwoFactorAuth(userId: string) {
+    const user = await this.usersRepository.findOneById(userId);
+    if (!user) {
+      throw new NotFoundException();
+    }
+    if (user.isTwoFactorAuthEnabled()) {
+      throw new ForbiddenException(
+        'Two factor authentication already enabled for user',
+      );
+    }
+    //ToDo - generate authenticator secrete and store it in user + generate QR code to return
+    user.twoFactorAuthEnabled = true;
+    await this.usersRepository.update(user);
+  }
+
+  async disableTwoFactorAuth(userId: string) {
+    const user = await this.usersRepository.findOneById(userId);
+    if (!user) {
+      throw new NotFoundException();
+    }
+    if (user.isTwoFactorAuthEnabled()) {
+      user.twoFactorAuthSecret = null;
+      user.twoFactorAuthEnabled = false;
+      await this.usersRepository.update(user);
     }
   }
 

@@ -1,26 +1,64 @@
-import { Controller, UseGuards, Request, Get, Logger } from '@nestjs/common';
+import {
+  Controller,
+  UseGuards,
+  Request,
+  Get,
+  Logger,
+  Param,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import {
   ApiBasicAuth,
+  ApiExtraModels,
   ApiOkResponse,
-  ApiProperty,
+  ApiOperation,
   ApiTags,
+  getSchemaPath,
 } from '@nestjs/swagger';
-import { TokenResponse } from './token.response';
+import { TokenResponse } from './dto/token.response';
+import { NextStepResponse } from './dto/next-step.response';
 
 @ApiTags('auth')
 @Controller('auth')
+@ApiExtraModels(TokenResponse, NextStepResponse)
 export class AuthController {
   logger = new Logger(AuthController.name);
   constructor(private readonly authService: AuthService) {}
 
-  @ApiProperty({ description: 'Endpoint to get an new JWT token.' })
+  @ApiOperation({
+    description: 'Endpoint to get a new JWT token with BASIC authentication.',
+  })
   @ApiBasicAuth()
-  @ApiOkResponse({ type: TokenResponse })
+  @ApiOkResponse({
+    schema: {
+      title: 'TokenResponse',
+      oneOf: [
+        {
+          $ref: getSchemaPath(NextStepResponse),
+          title: 'NextStepResponse',
+        },
+        { $ref: getSchemaPath(TokenResponse), title: 'TokenResponse' },
+      ],
+    },
+  })
   @UseGuards(AuthGuard('basic'))
   @Get('/token')
-  async token(@Request() req): Promise<TokenResponse> {
-    return this.authService.login(req.user);
+  async getToken(@Request() req): Promise<TokenResponse | NextStepResponse> {
+    return this.authService.handleTokenRequest(req.user);
+  }
+
+  @ApiOperation({
+    description: 'Endpoint to get an new JWT token with 2FA authentication.',
+  })
+  @ApiOkResponse({ type: TokenResponse })
+  //ToDo - 2FA authentication.....
+  // @UseGuards(AuthGuard('basic'))
+  @Get('/token/:authSessionId')
+  async getTokenWith2fa(
+    @Request() req,
+    @Param('authSessionId') authSessionId: string,
+  ): Promise<TokenResponse> {
+    return this.authService.handle2faTokenRequest(req.user, authSessionId);
   }
 }

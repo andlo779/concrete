@@ -1,0 +1,11 @@
+import { AuthSession } from './model/auth-session.model';
+
+export class AuthSessionMapper {
+  static documentToModel(doc: any): AuthSession {
+    const authSession = new AuthSession();
+    authSession.id = doc.id;
+    authSession.userId = doc.userId;
+    authSession.createdAt = doc.createdAt;
+    return authSession;
+  }
+}

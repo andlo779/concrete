@@ -7,4 +7,6 @@ export class UserResponse {
   name: string;
   @ApiProperty()
   email: string;
+  @ApiProperty()
+  twoFactorAuthEnabled: boolean;
 }
