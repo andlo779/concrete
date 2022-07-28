@@ -50,6 +50,7 @@ A Swagger server is hosted within the app and can be reached via _/api_ or the j
 ## Authentication
 Authentication mechanism is supported within the application. Users need to obtain a token via basic authentication to 
 be able to use the REST services offered by the application.
+
 Users can also opt in for Second Factor Authentication for increased security. If user enables 2FA and TOTP password from
 an Authenticator app is needed to gain a token. (More information with flow charts will be provided.)
 
