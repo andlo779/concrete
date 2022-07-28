@@ -8,10 +8,10 @@ import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { User } from '../users/model/user.model';
-import { authenticator } from 'otplib';
 import { ConfigService } from '@nestjs/config';
 import { AuthSessionService } from './auth-session.service';
 import { AuthSteps } from './dto/next-step.response';
+import { TotpService } from './totp.service';
 
 @Injectable()
 export class AuthService {
@@ -22,6 +22,7 @@ export class AuthService {
     private readonly userService: UsersService,
     private readonly jwtService: JwtService,
     private readonly authSessionService: AuthSessionService,
+    private readonly totpService: TotpService,
   ) {}
 
   async validateUser(username: string, password: string): Promise<User> {
@@ -40,6 +41,18 @@ export class AuthService {
     return null;
   }
 
+  async validateTwoFactorAuthentication(
+    token: string,
+    sessionId: string,
+  ): Promise<boolean> {
+    const session = await this.authSessionService.getBySessionId(sessionId);
+    if (!session) {
+      throw new ForbiddenException('Auth session not valid');
+    }
+    const user = await this.userService.findWithId(session.userId);
+    return this.totpService.validateToken(token, user.twoFactorAuthSecret);
+  }
+
   async handleTokenRequest(
     user: User,
   ): Promise<
@@ -50,7 +63,7 @@ export class AuthService {
         user.userId,
       );
 
-      return { nextStep: AuthSteps['2FA'], sessionId: sessionId };
+      return { nextStep: AuthSteps.TOTP, sessionId: sessionId };
     } else {
       return {
         access_token: this.generateAuthToken(user),
@@ -63,10 +76,14 @@ export class AuthService {
     sessionId: string,
   ): Promise<{ access_token: string }> {
     const authSession = await this.authSessionService.getByUSerId(user.userId);
-    //ToDo: add validation if session is expired or not.....?
-    if (!authSession || authSession.id !== sessionId) {
+    if (
+      !authSession ||
+      authSession.id !== sessionId ||
+      !authSession.isValid()
+    ) {
       throw new ForbiddenException('Auth session not valid');
     }
+    await this.authSessionService.deleteBySessionId(sessionId);
     return {
       access_token: this.generateAuthToken(user),
     };

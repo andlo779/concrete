@@ -49,7 +49,9 @@ A Swagger server is hosted within the app and can be reached via _/api_ or the j
 
 ## Authentication
 Authentication mechanism is supported within the application. Users need to obtain a token via basic authentication to 
-be able to use the REST services offered by the application.  
+be able to use the REST services offered by the application.
+Users can also opt in for Second Factor Authentication for increased security. If user enables 2FA and TOTP password from
+an Authenticator app is needed to gain a token. (More information with flow charts will be provided.)
 
 ## Database
 This project is set up to use MongoDb as database. In the sourcecode data files are provided to populate the database to
@@ -61,7 +63,7 @@ _service_mongo_1_ should be replaced with whatever your container is called.
 # copy file into container
 docker cp resources/users.json service_mongo_1:/tmp/users.json
 # login to container with bash
-docker docker exec -it service_mongo_1 bash
+docker exec -it service_mongo_1 bash
 # run mongoimport (with credentials if needed)
 mongoimport -u root -p password --authenticationDatabase admin -d concrete -c users --type=json --file /tmp/users.json
 ```

@@ -7,6 +7,7 @@ describe('AuthSessionMapper', () => {
     const session = new AuthSession();
     session.id = 'testId';
     session.userId = 'userId';
+    session.ttl = 2;
     session.createdAt = new Date();
 
     return session;

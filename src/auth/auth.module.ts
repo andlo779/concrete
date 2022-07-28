@@ -11,6 +11,7 @@ import { BasicStrategy } from './basic.strategy';
 import { MongoModule } from '../mongo-client/mongo-module';
 import { AuthSessionRepository } from './auth-session.repository';
 import { AuthSessionService } from './auth-session.service';
+import { TotpService } from './totp.service';
 
 const jwtFactory = {
   inject: [ConfigService],
@@ -36,7 +37,9 @@ const jwtFactory = {
     BasicStrategy,
     AuthSessionService,
     AuthSessionRepository,
+    TotpService,
   ],
   controllers: [AuthController],
+  exports: [TotpService],
 })
 export class AuthModule {}

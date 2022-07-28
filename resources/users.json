@@ -1,12 +1,16 @@
 {
   "userId": "1",
   "name": "andreas",
-  "email": "test@test.com",
-  "password": "$2b$10$gV6AW.0vuzeIDW4p2IQDW.d7Wn0JB/mvdvZMOZoHb20hBaSSqlYtq"
+  "email": "andreas@test.com",
+  "password": "$2b$10$gV6AW.0vuzeIDW4p2IQDW.d7Wn0JB/mvdvZMOZoHb20hBaSSqlYtq",
+  "twoFactorAuthEnabled": false,
+  "createdAt": ISODate("2022-01-01T00:00:00.000Z")
 }
 {
   "userId": "2",
   "name": "johan",
-  "email": "testXX@test.com",
-  "password": "$2b$10$gV6AW.0vuzeIDW4p2IQDW.d7Wn0JB/mvdvZMOZoHb20hBaSSqlYtq"
+  "email": "johan@test.com",
+  "password": "$2b$10$gV6AW.0vuzeIDW4p2IQDW.d7Wn0JB/mvdvZMOZoHb20hBaSSqlYtq",
+  "twoFactorAuthEnabled": false,
+  "createdAt": ISODate("2022-01-01T00:00:00.000Z")
 }

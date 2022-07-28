@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export enum AuthSteps {
-  '2FA' = '2FA',
+  TOTP = 'TOTP',
   BASIC = 'BASIC',
 }
 

@@ -9,12 +9,17 @@ import { UsersRepository } from './users.repository';
 import { User } from './model/user.model';
 import * as bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
+import { TotpService } from '../auth/totp.service';
+import { toDataURL } from 'qrcode';
 
 @Injectable()
 export class UsersService {
   logger = new Logger(UsersService.name);
   private saltRounds = 10;
-  constructor(private readonly usersRepository: UsersRepository) {}
+  constructor(
+    private readonly usersRepository: UsersRepository,
+    private readonly totpService: TotpService,
+  ) {}
 
   async findWithUsername(username: string): Promise<User> {
     const user = await this.usersRepository.findOneByUsername(username);
@@ -70,7 +75,9 @@ export class UsersService {
     }
   }
 
-  async enableTwoFactorAuth(userId: string) {
+  async generateTwoFactorAuth(
+    userId: string,
+  ): Promise<{ secret: string; qrcode: string }> {
     const user = await this.usersRepository.findOneById(userId);
     if (!user) {
       throw new NotFoundException();
@@ -80,9 +87,39 @@ export class UsersService {
         'Two factor authentication already enabled for user',
       );
     }
-    //ToDo - generate authenticator secrete and store it in user + generate QR code to return
-    user.twoFactorAuthEnabled = true;
+    user.twoFactorAuthSecret = this.totpService.generateSecrete();
     await this.usersRepository.update(user);
+
+    const qrUri = this.totpService.generateQrUri(
+      user.name,
+      user.twoFactorAuthSecret,
+    );
+
+    const qrCode = await toDataURL(qrUri);
+    this.logger.log(qrCode);
+
+    return {
+      secret: user.twoFactorAuthSecret,
+      qrcode: qrCode,
+    };
+  }
+
+  async validateAndEnableTwoFactorAuth(userId: string, token: string) {
+    const user = await this.usersRepository.findOneById(userId);
+    if (!user) {
+      throw new NotFoundException();
+    }
+    if (!user.hasTwoFactorAuthSecrete()) {
+      throw new ForbiddenException(
+        'TwoFactor secret needs to be generated before 2FA can be enabled.',
+      );
+    }
+    if (this.totpService.validateToken(token, user.twoFactorAuthSecret)) {
+      user.twoFactorAuthEnabled = true;
+      await this.usersRepository.update(user);
+    } else {
+      throw new ForbiddenException('One time password was no match.');
+    }
   }
 
   async disableTwoFactorAuth(userId: string) {

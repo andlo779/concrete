@@ -26,6 +26,7 @@ import { UsersMapper } from './users.mapper';
 import { UserResponse } from './dto/user.response';
 import { CreateUserRequest } from './dto/create-user.request';
 import { ChangePasswordRequest } from './dto/change-password.request';
+import { Enable2faResponse } from './dto/enable-2fa.response';
 
 @ApiTags('users')
 @ApiConsumes('application/json')
@@ -86,6 +87,40 @@ export class UsersController {
       changePasswordRequest.oldPassword,
       changePasswordRequest.newPassword,
     );
+    return Promise.resolve();
+  }
+
+  @ApiOkResponse({ type: Enable2faResponse })
+  @ApiNotFoundResponse()
+  @ApiForbiddenResponse()
+  @ApiBearerAuth()
+  @Get(':userId/generate2fa')
+  async generateTwoFactorAuth(
+    @Param('userId') userId: string,
+  ): Promise<Enable2faResponse> {
+    return await this.usersService.generateTwoFactorAuth(userId);
+  }
+
+  @ApiNoContentResponse()
+  @ApiNotFoundResponse()
+  @ApiForbiddenResponse()
+  @ApiBearerAuth()
+  @Get(':userId/enable2fa/:token')
+  async enableTwoFactorAuth(
+    @Param('userId') userId: string,
+    @Param('token') token: string,
+  ): Promise<any> {
+    await this.usersService.validateAndEnableTwoFactorAuth(userId, token);
+    return Promise.resolve();
+  }
+
+  @ApiNoContentResponse()
+  @ApiForbiddenResponse()
+  @ApiBearerAuth()
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Get(':userId/disable2fa')
+  async disableTwoFactorAuth(@Param('userId') userId: string): Promise<any> {
+    await this.usersService.disableTwoFactorAuth(userId);
     return Promise.resolve();
   }
 }

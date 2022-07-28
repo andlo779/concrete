@@ -49,7 +49,7 @@ export class RecordsService {
       throw new NotFoundException();
     }
 
-    //ToDo: create a mapping function that is unit tested
+    // ToDo: create a mapping function that is unit tested
     const newRecord = new Record();
     newRecord.id = randomUUID();
     newRecord.name = record.name;

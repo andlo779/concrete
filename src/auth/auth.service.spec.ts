@@ -4,12 +4,14 @@ import { mock, mockReset } from 'jest-mock-extended';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { AuthSessionService } from './auth-session.service';
+import { TotpService } from './totp.service';
 
 describe('AuthService', () => {
   const mockConfService = mock<ConfigService>();
   const mockUserService = mock<UsersService>();
   const mockJwtService = mock<JwtService>();
   const mockAuthSessionService = mock<AuthSessionService>();
+  const mockTotpService = mock<TotpService>();
   mockConfService.getOrThrow<string>.mockReturnValueOnce('abcdef');
 
   const service = new AuthService(
@@ -17,6 +19,7 @@ describe('AuthService', () => {
     mockUserService,
     mockJwtService,
     mockAuthSessionService,
+    mockTotpService,
   );
 
   beforeEach(async () => {

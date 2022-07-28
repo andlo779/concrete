@@ -6,6 +6,7 @@ export class AuthSessionMapper {
     authSession.id = doc.id;
     authSession.userId = doc.userId;
     authSession.createdAt = doc.createdAt;
+    authSession.ttl = doc.ttl;
     return authSession;
   }
 }

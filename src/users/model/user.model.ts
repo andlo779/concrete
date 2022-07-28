@@ -10,4 +10,8 @@ export class User {
   isTwoFactorAuthEnabled(): boolean {
     return this.twoFactorAuthEnabled;
   }
+
+  hasTwoFactorAuthSecrete(): boolean {
+    return !!this.twoFactorAuthSecret;
+  }
 }

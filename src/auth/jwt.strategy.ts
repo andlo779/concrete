@@ -15,7 +15,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    //ToDo: How does this work again? No real validation hapening + does this expand the request with the userId and username?
+    // ToDo: How does this work again? No real validation hapening + does this expand the request with the userId and username?
     return { userId: payload.userId, username: payload.username };
   }
 }

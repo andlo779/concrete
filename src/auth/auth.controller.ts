@@ -52,8 +52,9 @@ export class AuthController {
     description: 'Endpoint to get an new JWT token with 2FA authentication.',
   })
   @ApiOkResponse({ type: TokenResponse })
-  //ToDo - 2FA authentication.....
-  // @UseGuards(AuthGuard('basic'))
+  @ApiBasicAuth()
+  // ToDo: 2FA authentication.....
+  @UseGuards(AuthGuard('basic'))
   @Get('/token/:authSessionId')
   async getTokenWith2fa(
     @Request() req,
