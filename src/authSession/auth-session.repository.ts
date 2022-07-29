@@ -14,7 +14,8 @@ export class AuthSessionRepository implements RepositoryInterface<AuthSession> {
   }
 
   async findAll(): Promise<AuthSession[]> {
-    return await this.collection.find<AuthSession>({}).toArray();
+    const docs = await this.collection.find<AuthSession>({}).toArray();
+    return docs.map(AuthSessionMapper.documentToModel);
   }
 
   async findOneById(id: string): Promise<AuthSession> {
@@ -38,7 +39,7 @@ export class AuthSessionRepository implements RepositoryInterface<AuthSession> {
     if (result.acknowledged) {
       return session;
     }
-    return Promise.reject();
+    return undefined;
   }
 
   async update(session: AuthSession): Promise<AuthSession> {
@@ -47,7 +48,10 @@ export class AuthSessionRepository implements RepositoryInterface<AuthSession> {
       { $set: { ...session } },
       { returnDocument: 'after' },
     );
-    return AuthSessionMapper.documentToModel(result.value);
+    if (result.ok) {
+      return AuthSessionMapper.documentToModel(result.value);
+    }
+    return undefined;
   }
 
   async remove(id: string) {

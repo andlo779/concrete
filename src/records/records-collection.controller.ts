@@ -14,6 +14,7 @@ import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
+  ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
 import { RecordsCollectionResponse } from './dto/records-collection.response';
@@ -53,10 +54,13 @@ export class RecordsCollectionController {
     return RecordsCollectionMapper.modelToDto(collection);
   }
 
-  @ApiOkResponse({ type: RecordsCollectionResponse })
+  @ApiOperation({
+    description: 'Endpoint to add new vinyl record to a collection',
+  })
+  @ApiCreatedResponse({ type: RecordsCollectionResponse })
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
-  @Patch(':collectionId')
+  @Post(':collectionId/records')
   async addRecordToCollection(
     @Param('collectionId') collectionId: string,
     @Body() request: AddRecordRequest,
@@ -74,6 +78,9 @@ export class RecordsCollectionController {
     return RecordsCollectionMapper.modelToDto(collection);
   }
 
+  @ApiOperation({
+    description: 'Endpoint to update a vinyl record in a collection',
+  })
   @ApiOkResponse({ type: RecordsCollectionResponse })
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()

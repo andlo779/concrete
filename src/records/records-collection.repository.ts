@@ -18,11 +18,16 @@ export class RecordsCollectionRepository
   }
 
   async findAll(): Promise<RecordsCollection[]> {
-    return await this.collection.find<RecordsCollection>({}).toArray();
+    const docs = await this.collection.find<RecordsCollection>({}).toArray();
+    return docs.map(RecordsCollectionMapper.documentToModel);
   }
 
   async findOneById(id: string): Promise<RecordsCollection> {
-    return await this.collection.findOne<RecordsCollection>({ id: id });
+    const doc = await this.collection.findOne<RecordsCollection>({ id: id });
+    if (doc) {
+      return RecordsCollectionMapper.documentToModel(doc);
+    }
+    return undefined;
   }
 
   async insert(record: RecordsCollection): Promise<RecordsCollection> {
@@ -30,7 +35,7 @@ export class RecordsCollectionRepository
     if (result.acknowledged) {
       return record;
     }
-    return Promise.reject();
+    return undefined;
   }
 
   async update(record: RecordsCollection): Promise<RecordsCollection> {
@@ -39,6 +44,9 @@ export class RecordsCollectionRepository
       { $set: { ...record } },
       { returnDocument: 'after' },
     );
-    return RecordsCollectionMapper.documentToModel(result.value);
+    if (result.ok) {
+      return RecordsCollectionMapper.documentToModel(result.value);
+    }
+    return undefined;
   }
 }

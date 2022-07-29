@@ -14,7 +14,8 @@ export class UsersRepository implements RepositoryInterface<User> {
   }
 
   async findAll(): Promise<User[]> {
-    return await this.collection.find<User>({}).toArray();
+    const docs = await this.collection.find<User>({}).toArray();
+    return docs.map(UsersMapper.documentToModel);
   }
 
   async findOneById(id: string): Promise<User> {
@@ -22,7 +23,7 @@ export class UsersRepository implements RepositoryInterface<User> {
     if (doc) {
       return UsersMapper.documentToModel(doc);
     }
-    await Promise.reject();
+    return undefined;
   }
 
   async findOneByUsername(username: string): Promise<User> {
@@ -30,7 +31,7 @@ export class UsersRepository implements RepositoryInterface<User> {
     if (doc) {
       return UsersMapper.documentToModel(doc);
     }
-    await Promise.reject();
+    return undefined;
   }
 
   async insert(user: User): Promise<User> {
@@ -38,7 +39,7 @@ export class UsersRepository implements RepositoryInterface<User> {
     if (result.acknowledged) {
       return user;
     }
-    return Promise.reject();
+    return undefined;
   }
 
   async update(user: User): Promise<User> {
@@ -47,6 +48,9 @@ export class UsersRepository implements RepositoryInterface<User> {
       { $set: { ...user } },
       { returnDocument: 'after' },
     );
-    return UsersMapper.documentToModel(result.value);
+    if (result.ok) {
+      return UsersMapper.documentToModel(result.value);
+    }
+    return undefined;
   }
 }
