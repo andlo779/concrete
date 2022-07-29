@@ -1,19 +1,19 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
 import { UsersRepository } from './users.repository';
+import { mock, mockReset } from 'jest-mock-extended';
+import { TotpService } from '../auth/totp.service';
 
 describe('UsersService', () => {
-  let service: UsersService;
+  const mockUserRepository = mock<UsersRepository>();
+  const mockTotpService = mock<TotpService>();
+  const service = new UsersService(mockUserRepository, mockTotpService);
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [UsersService, UsersRepository],
-    }).compile();
-
-    service = module.get<UsersService>(UsersService);
+    mockReset(mockUserRepository);
+    mockReset(mockTotpService);
   });
 
-  it.skip('should be defined', () => {
+  it('should be defined', () => {
     expect(service).toBeDefined();
   });
 });
