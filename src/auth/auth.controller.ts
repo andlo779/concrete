@@ -19,6 +19,7 @@ import {
 } from '@nestjs/swagger';
 import { TokenResponse } from './dto/token.response';
 import { NextStepResponse } from './dto/next-step.response';
+import { TotpAuthGuard } from './totp-auth.guard';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -54,7 +55,7 @@ export class AuthController {
   })
   @ApiOkResponse({ type: TokenResponse })
   @ApiBearerAuth()
-  @UseGuards(AuthGuard('totp'))
+  @UseGuards(TotpAuthGuard)
   @Get('/authSession/:authSessionId/token')
   async getTokenWith2fa(
     @Request() req,
