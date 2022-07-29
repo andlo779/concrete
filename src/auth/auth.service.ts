@@ -9,7 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { User } from '../users/model/user.model';
 import { ConfigService } from '@nestjs/config';
-import { AuthSessionService } from './auth-session.service';
+import { AuthSessionService } from '../authSession/auth-session.service';
 import { AuthSteps } from './dto/next-step.response';
 import { TotpService } from './totp.service';
 
@@ -29,7 +29,6 @@ export class AuthService {
     try {
       const user = await this.userService.findWithUsername(username);
       if (user && (await bcrypt.compare(password, user.password))) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         return user;
       }
     } catch (e) {
@@ -44,13 +43,16 @@ export class AuthService {
   async validateTwoFactorAuthentication(
     token: string,
     sessionId: string,
-  ): Promise<boolean> {
+  ): Promise<User> {
     const session = await this.authSessionService.getBySessionId(sessionId);
     if (!session) {
       throw new ForbiddenException('Auth session not valid');
     }
     const user = await this.userService.findWithId(session.userId);
-    return this.totpService.validateToken(token, user.twoFactorAuthSecret);
+    if (this.totpService.validateToken(token, user.twoFactorAuthSecret)) {
+      return user;
+    }
+    return null;
   }
 
   async handleTokenRequest(

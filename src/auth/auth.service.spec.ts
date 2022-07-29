@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { mock, mockReset } from 'jest-mock-extended';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
-import { AuthSessionService } from './auth-session.service';
+import { AuthSessionService } from '../authSession/auth-session.service';
 import { TotpService } from './totp.service';
 
 describe('AuthService', () => {

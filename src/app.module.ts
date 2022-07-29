@@ -5,20 +5,22 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { APP_PIPE } from '@nestjs/core';
-import { RequestResponseLoggerMiddleware } from './middleware/request-response-logger.middleware';
+import { AuthModule } from './auth/auth.module';
+import { AuthSessionModule } from './authSession/auth-session.module';
 import { ConfigModule } from '@nestjs/config';
 import { HealthcheckModule } from './healthcheck/healthcheck.module';
-import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
 import { RecordsModule } from './records/records.module';
+import { RequestResponseLoggerMiddleware } from './middleware/request-response-logger.middleware';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
+    AuthModule,
+    AuthSessionModule,
     ConfigModule.forRoot({ isGlobal: true }),
     HealthcheckModule,
-    AuthModule,
-    UsersModule,
     RecordsModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [

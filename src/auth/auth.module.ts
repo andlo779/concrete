@@ -1,17 +1,19 @@
-import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { UsersModule } from '../users/users.module';
-import { PassportModule } from '@nestjs/passport';
-import { AuthController } from './auth.controller';
-import { JwtModule } from '@nestjs/jwt';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AUTH_JWT_EXP_TIME, AUTH_JWT_SECRET_KEY } from '../constants';
-import { JwtStrategy } from './jwt.strategy';
+import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
+import { AuthSessionModule } from '../authSession/auth-session.module';
+import { AuthSessionRepository } from '../authSession/auth-session.repository';
+import { AuthSessionService } from '../authSession/auth-session.service';
 import { BasicStrategy } from './basic.strategy';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
+import { JwtStrategy } from './jwt.strategy';
+import { Module } from '@nestjs/common';
 import { MongoModule } from '../mongo-client/mongo-module';
-import { AuthSessionRepository } from './auth-session.repository';
-import { AuthSessionService } from './auth-session.service';
+import { PassportModule } from '@nestjs/passport';
 import { TotpService } from './totp.service';
+import { TotpStrategy } from './totp.strategy';
+import { UsersModule } from '../users/users.module';
 
 const jwtFactory = {
   inject: [ConfigService],
@@ -25,19 +27,21 @@ const jwtFactory = {
 
 @Module({
   imports: [
+    AuthSessionModule,
     ConfigModule,
-    UsersModule,
-    PassportModule,
-    MongoModule,
     JwtModule.registerAsync(jwtFactory),
+    MongoModule,
+    PassportModule,
+    UsersModule,
   ],
   providers: [
     AuthService,
-    JwtStrategy,
-    BasicStrategy,
-    AuthSessionService,
     AuthSessionRepository,
+    AuthSessionService,
+    BasicStrategy,
+    JwtStrategy,
     TotpService,
+    TotpStrategy,
   ],
   controllers: [AuthController],
   exports: [TotpService],

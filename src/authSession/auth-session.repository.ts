@@ -19,12 +19,18 @@ export class AuthSessionRepository implements RepositoryInterface<AuthSession> {
 
   async findOneById(id: string): Promise<AuthSession> {
     const doc = await this.collection.findOne<AuthSession>({ id: id });
-    return AuthSessionMapper.documentToModel(doc);
+    if (doc) {
+      return AuthSessionMapper.documentToModel(doc);
+    }
+    return undefined;
   }
 
   async findByUserId(userId: string): Promise<AuthSession> {
     const doc = await this.collection.findOne<AuthSession>({ userId: userId });
-    return AuthSessionMapper.documentToModel(doc);
+    if (doc) {
+      return AuthSessionMapper.documentToModel(doc);
+    }
+    return undefined;
   }
 
   async insert(session: AuthSession): Promise<AuthSession> {

@@ -10,6 +10,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import {
   ApiBasicAuth,
+  ApiBearerAuth,
   ApiExtraModels,
   ApiOkResponse,
   ApiOperation,
@@ -52,10 +53,9 @@ export class AuthController {
     description: 'Endpoint to get an new JWT token with 2FA authentication.',
   })
   @ApiOkResponse({ type: TokenResponse })
-  @ApiBasicAuth()
-  // ToDo: 2FA authentication.....
-  @UseGuards(AuthGuard('basic'))
-  @Get('/token/:authSessionId')
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('totp'))
+  @Get('/authSession/:authSessionId/token')
   async getTokenWith2fa(
     @Request() req,
     @Param('authSessionId') authSessionId: string,
