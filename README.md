@@ -1,19 +1,49 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
-## Description
-
-Learning project for me to get into the depths of NestJS. Application to handle some private domain such as record collection, via REST interface intended to be consumed by a frontend application. For simplicity in hosting (and me learning Security in NestJS and Passport), this application will provide its own authentication. 
-
-## Installation
-
-```bash
-$ npm install
+```text                                                                                                  
+                                                                                                                                                               
+        CCCCCCCCCCCCC                                                                                                        tttt                              
+     CCC::::::::::::C                                                                                                     ttt:::t                              
+   CC:::::::::::::::C                                                                                                     t:::::t                              
+  C:::::CCCCCCCC::::C                                                                                                     t:::::t                              
+ C:::::C       CCCCCC   ooooooooooo   nnnn  nnnnnnnn        ccccccccccccccccrrrrr   rrrrrrrrr       eeeeeeeeeeee    ttttttt:::::ttttttt        eeeeeeeeeeee    
+C:::::C               oo:::::::::::oo n:::nn::::::::nn    cc:::::::::::::::cr::::rrr:::::::::r    ee::::::::::::ee  t:::::::::::::::::t      ee::::::::::::ee  
+C:::::C              o:::::::::::::::on::::::::::::::nn  c:::::::::::::::::cr:::::::::::::::::r  e::::::eeeee:::::eet:::::::::::::::::t     e::::::eeeee:::::ee
+C:::::C              o:::::ooooo:::::onn:::::::::::::::nc:::::::cccccc:::::crr::::::rrrrr::::::re::::::e     e:::::etttttt:::::::tttttt    e::::::e     e:::::e
+C:::::C              o::::o     o::::o  n:::::nnnn:::::nc::::::c     ccccccc r:::::r     r:::::re:::::::eeeee::::::e      t:::::t          e:::::::eeeee::::::e
+C:::::C              o::::o     o::::o  n::::n    n::::nc:::::c              r:::::r     rrrrrrre:::::::::::::::::e       t:::::t          e:::::::::::::::::e 
+C:::::C              o::::o     o::::o  n::::n    n::::nc:::::c              r:::::r            e::::::eeeeeeeeeee        t:::::t          e::::::eeeeeeeeeee  
+ C:::::C       CCCCCCo::::o     o::::o  n::::n    n::::nc::::::c     ccccccc r:::::r            e:::::::e                 t:::::t    tttttte:::::::e           
+  C:::::CCCCCCCC::::Co:::::ooooo:::::o  n::::n    n::::nc:::::::cccccc:::::c r:::::r            e::::::::e                t::::::tttt:::::te::::::::e          
+   CC:::::::::::::::Co:::::::::::::::o  n::::n    n::::n c:::::::::::::::::c r:::::r             e::::::::eeeeeeee        tt::::::::::::::t e::::::::eeeeeeee  
+     CCC::::::::::::C oo:::::::::::oo   n::::n    n::::n  cc:::::::::::::::c r:::::r              ee:::::::::::::e          tt:::::::::::tt  ee:::::::::::::e  
+        CCCCCCCCCCCCC   ooooooooooo     nnnnnn    nnnnnn    cccccccccccccccc rrrrrrr                eeeeeeeeeeeeee            ttttttttttt      eeeeeeeeeeeeee  
+                                                                                                                                                               
 ```
 
-## Running the app
+<!--suppress ALL -->
+<div align="center">
 
+![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![NestJS](https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
+
+</div>
+
+<div align=center>
+
+[![Concrete CI](https://github.com/andlo779/concrete/actions/workflows/ci.yaml/badge.svg)](https://github.com/andlo779/concrete/actions/workflows/ci.yaml)
+![GitHub](https://img.shields.io/github/license/andlo779/concrete)
+![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/andlo779/concrete/@nestjs/core?color=red)
+![GitHub last commit](https://img.shields.io/github/last-commit/andlo779/concrete?color=yellow)
+![GitHub Repo stars](https://img.shields.io/github/stars/andlo779/concrete)
+![GitHub forks](https://img.shields.io/github/forks/andlo779/concrete?color=lightblue)
+
+</div>
+
+## Description
+Learning project for author to get into the depths of NestJS <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="16" alt="Nest Logo" /></a>. The domain model of the application is designed handle vinyl record collection, via REST interface intended to be consumed by a frontend application. For simplicity in hosting (and me learning Security in NestJS and Passport), this application will provide its own authentication. 
+
+## Running the app
 ```bash
 # development
 $ npm run start
@@ -26,7 +56,6 @@ $ npm run start:prod
 ```
 
 ## Test
-
 ```bash
 # unit tests
 $ npm run test
@@ -39,27 +68,27 @@ $ npm run test:cov
 ```
 
 ## Configuration
-The application expects some configuration to work, either from ENV variables or from .env file in root directory. 
+The application expects some configuration to be able to run, either from ENV variables or from .env file in root directory.
+
 Example .env file is committed in repository. 
 
-ENV variables will override .env file.
+ENV variables will override .env file, so .env file can be left in build even if one wants to override its values. 
 
 ## Open API Specification
 A Swagger server is hosted within the app and can be reached via _/api_ or the json schema via _/api-json_
 
 ## Authentication
-Authentication mechanism is supported within the application. Users need to obtain a token via basic authentication to 
-be able to use the REST services offered by the application.
+Authentication mechanism is supported within the application. Users need to obtain a token via basic authentication to be able to use the REST services offered by the application.
 
-Users can also opt in for Second Factor Authentication for increased security. If user enables 2FA and TOTP password from
-an Authenticator app is needed to gain a token. (More information with flow charts will be provided.)
+Users can also opt in for Second Factor Authentication for increased security. If user enables 2FA and TOTP password from an Authenticator app is needed to gain a token. (More information with flow charts will be provided.)
 
 ## Database
-This project is set up to use MongoDb as database. In the sourcecode data files are provided to populate the database to
-be able to run the application. The default password for all users is: _123456789_
+This project is set up to use __MongoDb__ as database. In the _sourcecode- folder data files are provided to populate the database to be able to run the application and should be applied before first start.
+
+#### The default password for all users is: _123456789_
 
 ### How to import user data into MongoDb in Docker container running locally:
-_service_mongo_1_ should be replaced with whatever your container is called.
+The service name; _service_mongo_1_ should be replaced with the service name of your own container.
 ```bash
 # copy file into container
 docker cp resources/users.json service_mongo_1:/tmp/users.json
@@ -72,9 +101,8 @@ mongoimport -u root -p password --authenticationDatabase admin -d concrete -c us
 ## Backlog
 Official backlog can be found in [GitHub Projects](https://github.com/users/andlo779/projects/2/views/2)
 
-## License
-
-This project is [MIT licensed](LICENSE.md).
-
 ## Author
 [Andreas Lord](mailto:andlo779@gmail.com) 
+
+## License
+This project is [MIT licensed](LICENSE.md).

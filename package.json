@@ -1,10 +1,14 @@
 {
   "name": "concrete",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Learning project for me to get into the depths of NestJS",
+  "author": { "name": "Andreas Lord", "email": "andlo779@gmail.com", "url": "https://github.com/andlo779"},
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andlo779/concrete"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
@@ -71,6 +75,9 @@
     "ts-node": "^10.9.1",
     "tsconfig-paths": "4.0.0",
     "typescript": "^4.3.5"
+  },
+  "engines": {
+    "node": "16.16.0"
   },
   "jest": {
     "moduleFileExtensions": [
