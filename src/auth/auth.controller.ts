@@ -19,10 +19,11 @@ import {
 } from '@nestjs/swagger';
 import { TokenResponse } from './dto/token.response';
 import { NextStepResponse } from './dto/next-step.response';
-import { TotpAuthGuard } from './totp-auth.guard';
+import { TotpAuthGuard } from './guards/totp-auth.guard';
+import { JwtRefreshAuthGuard } from './guards/jwt_refresh-auth.guard';
 
-@ApiTags('auth')
-@Controller('auth')
+@ApiTags('Auth')
+@Controller('/auth')
 @ApiExtraModels(TokenResponse, NextStepResponse)
 export class AuthController {
   logger = new Logger(AuthController.name);
@@ -56,11 +57,26 @@ export class AuthController {
   @ApiOkResponse({ type: TokenResponse })
   @ApiBearerAuth()
   @UseGuards(TotpAuthGuard)
-  @Get('/authSession/:authSessionId/token')
+  @Get('/auth-session/:authSessionId/token')
   async getTokenWith2fa(
     @Request() req,
     @Param('authSessionId') authSessionId: string,
   ): Promise<TokenResponse> {
     return this.authService.handle2faTokenRequest(req.user, authSessionId);
+  }
+
+  @ApiOperation({
+    description: 'Endpoint to get an new JWT from a refresh token.',
+  })
+  @ApiOkResponse({ type: TokenResponse })
+  @ApiBearerAuth()
+  @UseGuards(JwtRefreshAuthGuard)
+  @Get('/token/refresh')
+  async getTokenWithRefreshToken(@Request() req): Promise<TokenResponse> {
+    //ToDo: validation of userId and tokenId??
+    return await this.authService.handleRefreshTokenRequest(
+      req.user.userId,
+      req.user.tokenId,
+    );
   }
 }

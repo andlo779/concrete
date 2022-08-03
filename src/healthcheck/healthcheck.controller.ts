@@ -4,7 +4,7 @@ import { PingResponse } from './dto/ping.response';
 import { Status, StatusResponse } from './dto/status.response';
 import { DbStatusService } from './db-status.service';
 
-@ApiTags('healthcheck')
+@ApiTags('Health check')
 @Controller('healthcheck')
 export class HealthcheckController {
   logger = new Logger(HealthcheckController.name);

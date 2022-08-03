@@ -10,7 +10,7 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UsersService } from './users.service';
 import {
   ApiBearerAuth,
@@ -28,7 +28,7 @@ import { CreateUserRequest } from './dto/create-user.request';
 import { ChangePasswordRequest } from './dto/change-password.request';
 import { Enable2faResponse } from './dto/enable-2fa.response';
 
-@ApiTags('users')
+@ApiTags('Users')
 @ApiConsumes('application/json')
 @UseGuards(JwtAuthGuard)
 @Controller('users')

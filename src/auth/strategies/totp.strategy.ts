@@ -7,8 +7,9 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Strategy } from 'passport-custom';
-import { AuthService } from './auth.service';
-import { User } from '../users/model/user.model';
+import { Request } from 'express';
+import { AuthService } from '../auth.service';
+import { User } from '../../users/model/user.model';
 import { isUUID } from 'class-validator';
 
 @Injectable()

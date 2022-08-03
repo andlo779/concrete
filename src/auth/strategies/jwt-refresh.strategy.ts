@@ -2,20 +2,23 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { ConfigService } from '@nestjs/config';
-import { AUTH_JWT_SECRET_KEY } from '../constants';
+import { AUTH_JWT_REFRESH_SECRET_KEY } from '../../constants';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class JwtRefreshStrategy extends PassportStrategy(
+  Strategy,
+  'jwt-refresh',
+) {
   constructor(private readonly configService: ConfigService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: configService.get(AUTH_JWT_SECRET_KEY),
+      secretOrKey: configService.getOrThrow(AUTH_JWT_REFRESH_SECRET_KEY),
+      jsonWebTokenOptions: { issuer: 'concrete' },
     });
   }
 
   async validate(payload: any) {
-    // ToDo: How does this work again? No real validation happening + does this expand the request with the userId and username?
-    return { userId: payload.userId, username: payload.username };
+    return { userId: payload.sub, tokenId: payload.jti };
   }
 }

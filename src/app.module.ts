@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { APP_PIPE } from '@nestjs/core';
 import { AuthModule } from './auth/auth.module';
-import { AuthSessionModule } from './authSession/auth-session.module';
+import { AuthSessionModule } from './auth/authSession/auth-session.module';
 import { ConfigModule } from '@nestjs/config';
 import { HealthcheckModule } from './healthcheck/healthcheck.module';
 import { RecordsModule } from './records/records.module';

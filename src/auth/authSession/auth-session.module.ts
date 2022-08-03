@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AuthSessionService } from './auth-session.service';
 import { AuthSessionRepository } from './auth-session.repository';
-import { MongoModule } from '../mongo-client/mongo-module';
+import { MongoModule } from '../../mongo-client/mongo-module';
 
 @Module({
   imports: [MongoModule],

@@ -24,7 +24,7 @@ import { AddRecordRequest } from './dto/add-record.request';
 import { ChangeNameRequest } from './dto/change-name.request';
 import { UpdateRecordRequest } from './dto/update-record.request';
 
-@ApiTags('records')
+@ApiTags('Records')
 @ApiConsumes('application/json')
 @Controller('records-collection')
 export class RecordsCollectionController {

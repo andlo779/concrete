@@ -40,11 +40,12 @@ function swaggerConfig() {
     )
     .addBasicAuth()
     .addBearerAuth()
-    .addTag('auth')
-    .addTag('users')
+    .addTag('Auth')
+    .addTag('Users')
     .addTag(
-      'healthcheck',
+      'Health check',
       'Utility end-points to determine status of the application.',
     )
+    .addTag('Records', 'Api to interact with record collections.')
     .build();
 }
