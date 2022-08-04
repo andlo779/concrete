@@ -8,16 +8,15 @@ import {
   AUTH_JWT_REFRESH_SECRET_KEY,
 } from '../constants';
 import { randomUUID } from 'crypto';
-import { JwtService } from '@nestjs/jwt';
 import { User } from '../users/model/user.model';
 import { RefreshToken } from './model/refresh.token';
+import { sign } from 'jsonwebtoken';
 
 @Injectable()
 export class TokenService {
   constructor(
     private readonly refreshTokensRepository: RefreshTokensRepository,
     private readonly configService: ConfigService,
-    private readonly jwtService: JwtService,
   ) {}
 
   async generateNewRefreshTokenIfOldExists(
@@ -52,17 +51,17 @@ export class TokenService {
     );
     const secret = this.configService.get<string>(AUTH_JWT_AUTH_SECRET_KEY);
 
-    return this.jwtService.sign(
+    return sign(
       {
         preferred_username: user.name,
         sub: user.userId,
         email: user.email,
       },
+      secret,
       {
         expiresIn: expireIn,
         issuer: 'concrete',
         jwtid: randomUUID(),
-        secret: secret,
       },
     );
   }
@@ -80,14 +79,10 @@ export class TokenService {
     );
     const secret = this.configService.get<string>(AUTH_JWT_REFRESH_SECRET_KEY);
 
-    return this.jwtService.sign(
-      { sub: userId },
-      {
-        expiresIn: expireIn,
-        issuer: 'concrete',
-        jwtid: tokenId,
-        secret: secret,
-      },
-    );
+    return sign({ sub: userId }, secret, {
+      expiresIn: expireIn,
+      issuer: 'concrete',
+      jwtid: tokenId,
+    });
   }
 }
