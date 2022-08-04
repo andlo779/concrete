@@ -17,3 +17,6 @@ export const MONGO_COLLECTION_USERS = 'users';
 export const MONGO_COLLECTION_RECORDS_COLLECTION = 'recordsCollections';
 export const MONGO_COLLECTION_AUTH_SESSION = 'authSessions';
 export const MONGO_COLLECTION_AUTH_REFRESH_TOKEN = 'refreshTokens';
+
+/* OTHERS */
+export const APP_VERSION = process.env.npm_package_version;

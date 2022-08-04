@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { APP_PORT } from './constants';
+import { APP_PORT, APP_VERSION } from './constants';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
@@ -32,7 +32,7 @@ function swaggerConfig() {
     .setDescription(
       "API description. Most end-points are authenticated and can't be tested without valid token.",
     )
-    .setVersion('1.0')
+    .setVersion(APP_VERSION)
     .setContact(
       'Andreas Lord',
       'https://github.com/andlo779/concrete',
