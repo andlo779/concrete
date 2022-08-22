@@ -63,7 +63,7 @@
     "@types/node": "^18.7.12",
     "@types/passport-http": "^0.3.9",
     "@types/passport-jwt": "^3.0.6",
-    "@types/qrcode": "^1.4.2",
+    "@types/qrcode": "^1.5.0",
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
