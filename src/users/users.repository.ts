@@ -7,7 +7,7 @@ import { RepositoryInterface } from '../repository.interface';
 
 @Injectable()
 export class UsersRepository implements RepositoryInterface<User> {
-  private collection: Collection;
+  private collection: Collection<User>;
 
   constructor(@Inject(MONGO_CLIENT) db: Db) {
     this.collection = db.collection(MONGO_COLLECTION_USERS);

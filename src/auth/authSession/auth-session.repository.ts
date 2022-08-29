@@ -7,7 +7,7 @@ import { AuthSessionMapper } from './auth-session.mapper';
 
 @Injectable()
 export class AuthSessionRepository implements RepositoryInterface<AuthSession> {
-  collection: Collection;
+  collection: Collection<AuthSession>;
 
   constructor(@Inject(MONGO_CLIENT) db: Db) {
     this.collection = db.collection(MONGO_COLLECTION_AUTH_SESSION);
