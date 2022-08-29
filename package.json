@@ -35,7 +35,7 @@
     "@nestjs/mapped-types": "^1.1.0",
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.11",
-    "@nestjs/swagger": "^6.0.5",
+    "@nestjs/swagger": "^6.1.0",
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
@@ -53,7 +53,7 @@
     "swagger-ui-express": "^4.5.0"
   },
   "devDependencies": {
-    "@nestjs/cli": "^9.0.0",
+    "@nestjs/cli": "^9.1.1",
     "@nestjs/schematics": "^9.0.1",
     "@nestjs/testing": "^9.0.11",
     "@types/bcrypt": "^5.0.0",
