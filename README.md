@@ -1,22 +1,19 @@
-```text                                                                                                  
-                                                                                                                                                               
-        CCCCCCCCCCCCC                                                                                                        tttt                              
-     CCC::::::::::::C                                                                                                     ttt:::t                              
-   CC:::::::::::::::C                                                                                                     t:::::t                              
-  C:::::CCCCCCCC::::C                                                                                                     t:::::t                              
- C:::::C       CCCCCC   ooooooooooo   nnnn  nnnnnnnn        ccccccccccccccccrrrrr   rrrrrrrrr       eeeeeeeeeeee    ttttttt:::::ttttttt        eeeeeeeeeeee    
-C:::::C               oo:::::::::::oo n:::nn::::::::nn    cc:::::::::::::::cr::::rrr:::::::::r    ee::::::::::::ee  t:::::::::::::::::t      ee::::::::::::ee  
-C:::::C              o:::::::::::::::on::::::::::::::nn  c:::::::::::::::::cr:::::::::::::::::r  e::::::eeeee:::::eet:::::::::::::::::t     e::::::eeeee:::::ee
-C:::::C              o:::::ooooo:::::onn:::::::::::::::nc:::::::cccccc:::::crr::::::rrrrr::::::re::::::e     e:::::etttttt:::::::tttttt    e::::::e     e:::::e
-C:::::C              o::::o     o::::o  n:::::nnnn:::::nc::::::c     ccccccc r:::::r     r:::::re:::::::eeeee::::::e      t:::::t          e:::::::eeeee::::::e
-C:::::C              o::::o     o::::o  n::::n    n::::nc:::::c              r:::::r     rrrrrrre:::::::::::::::::e       t:::::t          e:::::::::::::::::e 
-C:::::C              o::::o     o::::o  n::::n    n::::nc:::::c              r:::::r            e::::::eeeeeeeeeee        t:::::t          e::::::eeeeeeeeeee  
- C:::::C       CCCCCCo::::o     o::::o  n::::n    n::::nc::::::c     ccccccc r:::::r            e:::::::e                 t:::::t    tttttte:::::::e           
-  C:::::CCCCCCCC::::Co:::::ooooo:::::o  n::::n    n::::nc:::::::cccccc:::::c r:::::r            e::::::::e                t::::::tttt:::::te::::::::e          
-   CC:::::::::::::::Co:::::::::::::::o  n::::n    n::::n c:::::::::::::::::c r:::::r             e::::::::eeeeeeee        tt::::::::::::::t e::::::::eeeeeeee  
-     CCC::::::::::::C oo:::::::::::oo   n::::n    n::::n  cc:::::::::::::::c r:::::r              ee:::::::::::::e          tt:::::::::::tt  ee:::::::::::::e  
-        CCCCCCCCCCCCC   ooooooooooo     nnnnnn    nnnnnn    cccccccccccccccc rrrrrrr                eeeeeeeeeeeeee            ttttttttttt      eeeeeeeeeeeeee  
-                                                                                                                                                               
+```text
+        CCCCCCCCCCC                                                                                  tttt                              
+     CCC::::::::::C                                                                                tt:::t                              
+   CC:::::::::::::C                                                                                t::::t                              
+  C:::::CCCCCC::::C                                                                                t::::t                              
+ C:::::C     CCCCCC   oooooooo   nnnn nnnnnnn      ccccccccccc rrrr   rrrrr      eeeeeeeee    tttttt::::tttttt     eeeeeeeee    
+C:::::C             oo::::::::oo n:::n:::::::nn   c:::::::::::cr:::rrr:::::r    e:::::::::ee  t::::::::::::::t    e:::::::::ee  
+C:::::C            o::::::::::::on::::::::::::n  c::::::::::::cr::::::::::::r  e::::eeee::::eet::::::::::::::t   e::::eeee::::ee
+C:::::C            o::::oooo::::onn::::::::::::nc:::::ccccc:::crr:::::rrr::::re::::e    e::::ettttt::::::ttttt  e::::e    e::::e
+C:::::C            o:::o    o:::o  n::::nnn::::nc::::c    ccccc r::::r   r:::re:::::eeee:::::e     t::::t       e:::::eeee:::::e
+C:::::C            o:::o    o:::o  n:::n   n:::nc:::c           r::::r        e::::eeeeeeeee       t::::t       e::::eeeeeeeee  
+ C:::::C     CCCCCCo:::o    o:::o  n:::n   n:::nc::::c    ccccc r::::r        e:::::e              t::::t    ttte:::::e         
+  C:::::CCCCCC::::Co::::oooo::::o  n:::n   n:::nc:::::ccccc:::c r::::r         e::::::e             t:::::ttt::t e::::::e        
+   CC:::::::::::::Co::::::::::::o  n:::n   n:::n c::::::::::::c r::::r          e::::::eeeeee       tt:::::::::t  e::::::eeeeee  
+     CCC::::::::::C oo::::::::oo   n:::n   n:::n  c:::::::::::c r::::r           e::::::::::e         tt::::::tt   e::::::::::e  
+        CCCCCCCCCCC   oooooooo     nnnnn   nnnnn   ccccccccccc  rrrrrr            eeeeeeeeeee           ttttttt     eeeeeeeeee                                         
 ```
 
 <!--suppress ALL -->
