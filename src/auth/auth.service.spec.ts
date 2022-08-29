@@ -12,7 +12,7 @@ describe('AuthService', () => {
   const mockAuthSessionService = mock<AuthSessionService>();
   const mockTotpService = mock<TotpService>();
   const mockTokenService = mock<TokenService>();
-  mockConfService.getOrThrow<string>.mockReturnValueOnce('abcdef');
+  mockConfService.getOrThrow.mockReturnValueOnce('abcdef');
 
   const service = new AuthService(
     mockConfService,

@@ -12,7 +12,7 @@ import { RecordsCollection } from './model/records-collection.model';
 export class RecordsCollectionRepository
   implements RepositoryInterface<RecordsCollection>
 {
-  collection: Collection;
+  collection: Collection<RecordsCollection>;
   constructor(@Inject(MONGO_CLIENT) db: Db) {
     this.collection = db.collection(MONGO_COLLECTION_RECORDS_COLLECTION);
   }
@@ -30,20 +30,25 @@ export class RecordsCollectionRepository
     return undefined;
   }
 
-  async insert(record: RecordsCollection): Promise<RecordsCollection> {
-    const result = await this.collection.insertOne(record);
+  async insert(
+    recordsCollection: RecordsCollection,
+  ): Promise<RecordsCollection> {
+    const result = await this.collection.insertOne(recordsCollection);
     if (result.acknowledged) {
-      return record;
+      return recordsCollection;
     }
     return undefined;
   }
 
-  async update(record: RecordsCollection): Promise<RecordsCollection> {
+  async update(
+    recordsCollection: RecordsCollection,
+  ): Promise<RecordsCollection> {
     const result = await this.collection.findOneAndUpdate(
-      { id: record.id },
-      { $set: { ...record } },
+      { id: recordsCollection.id },
+      { $set: { ...recordsCollection } },
       { returnDocument: 'after' },
     );
+
     if (result.ok) {
       return RecordsCollectionMapper.documentToModel(result.value);
     }

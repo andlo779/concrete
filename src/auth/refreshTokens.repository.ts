@@ -12,7 +12,7 @@ import { RefreshTokenMapper } from './model/refresh-token.mapper';
 export class RefreshTokensRepository
   implements RepositoryInterface<RefreshToken>
 {
-  private collection: Collection;
+  private collection: Collection<RefreshToken>;
 
   constructor(@Inject(MONGO_CLIENT) db: Db) {
     this.collection = db.collection(MONGO_COLLECTION_AUTH_REFRESH_TOKEN);
