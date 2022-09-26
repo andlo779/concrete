@@ -4,12 +4,14 @@ import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { APP_PORT, APP_VERSION } from './constants';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { PingExceptionFilter } from './healthcheck/ping-exception.filter';
 
 async function bootstrap() {
   const logger = new Logger('NestApplication');
 
   const app = await NestFactory.create(AppModule);
   app.enableCors();
+  // app.useGlobalFilters(new PingExceptionFilter());
   const configService = app.get<ConfigService>(ConfigService);
   const port = configService.get<number>(APP_PORT, 3000);
 

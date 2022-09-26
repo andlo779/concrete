@@ -1,8 +1,10 @@
-import { Controller, Get, Logger } from '@nestjs/common';
+import { Controller, Get, Logger, UseFilters } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { PingResponse } from './dto/ping.response';
 import { Status, StatusResponse } from './dto/status.response';
 import { DbStatusService } from './db-status.service';
+import { PingExceptionFilter } from './ping-exception.filter';
+import { PingException } from './ping.exception';
 
 @ApiTags('Health check')
 @Controller('healthcheck')
@@ -12,8 +14,10 @@ export class HealthcheckController {
 
   @ApiOkResponse({ type: PingResponse })
   @Get('ping')
+  @UseFilters(new PingExceptionFilter())
   async ping(): Promise<PingResponse> {
-    return new PingResponse('pong');
+    throw new PingException('Din mamma!');
+    // return new PingResponse('pong');
   }
 
   @ApiOkResponse({ type: StatusResponse })
