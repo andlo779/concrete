@@ -25,7 +25,7 @@ export class RecordsService {
   }
 
   async getCollection(id: string): Promise<RecordsCollection> {
-    const collection = this.recordsCollectionRepository.findOneById(id);
+    const collection = await this.recordsCollectionRepository.findOneById(id);
     if (collection) {
       return collection;
     }

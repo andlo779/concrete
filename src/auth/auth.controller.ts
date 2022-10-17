@@ -15,12 +15,14 @@ import {
   ApiOkResponse,
   ApiOperation,
   ApiTags,
+  ApiUnauthorizedResponse,
   getSchemaPath,
 } from '@nestjs/swagger';
 import { TokenResponse } from './dto/token.response';
 import { NextStepResponse } from './dto/next-step.response';
 import { TotpAuthGuard } from './guards/totp-auth.guard';
 import { JwtRefreshAuthGuard } from './guards/jwt_refresh-auth.guard';
+import { SimpleErrorDto } from '../common/simple-error.dto';
 
 @ApiTags('Auth')
 @Controller('/auth')
@@ -45,6 +47,7 @@ export class AuthController {
       ],
     },
   })
+  @ApiUnauthorizedResponse({ type: SimpleErrorDto })
   @UseGuards(AuthGuard('basic'))
   @Get('/token')
   async getToken(@Request() req): Promise<TokenResponse | NextStepResponse> {
@@ -54,8 +57,9 @@ export class AuthController {
   @ApiOperation({
     description: 'Endpoint to get an new JWT token with 2FA authentication.',
   })
-  @ApiOkResponse({ type: TokenResponse })
   @ApiBearerAuth()
+  @ApiOkResponse({ type: TokenResponse })
+  @ApiUnauthorizedResponse({ type: SimpleErrorDto })
   @UseGuards(TotpAuthGuard)
   @Get('/auth-session/:authSessionId/token')
   async getTokenWith2fa(
@@ -68,8 +72,9 @@ export class AuthController {
   @ApiOperation({
     description: 'Endpoint to get an new JWT from a refresh token.',
   })
-  @ApiOkResponse({ type: TokenResponse })
   @ApiBearerAuth()
+  @ApiOkResponse({ type: TokenResponse })
+  @ApiUnauthorizedResponse({ type: SimpleErrorDto })
   @UseGuards(JwtRefreshAuthGuard)
   @Get('/token/refresh')
   async getTokenWithRefreshToken(@Request() req): Promise<TokenResponse> {

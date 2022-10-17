@@ -18,5 +18,8 @@ export const MONGO_COLLECTION_RECORDS_COLLECTION = 'recordsCollections';
 export const MONGO_COLLECTION_AUTH_SESSION = 'authSessions';
 export const MONGO_COLLECTION_AUTH_REFRESH_TOKEN = 'refreshTokens';
 
+/* ERROR MESSAGES */
+export const ERROR_MSG_INTERNAL_SERVER_ERROR = 'Internal server error';
+
 /* OTHERS */
 export const APP_VERSION = process.env.npm_package_version;
