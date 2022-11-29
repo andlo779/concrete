@@ -14,8 +14,8 @@
     "url": "https://github.com/andlo779/concrete"
   },
   "engines": {
-    "node": ">=16.16.0",
-    "npm": ">=8.1.0"
+    "node": "18.12.1",
+    "npm": ">=9.1.2"
   },
   "scripts": {
     "prebuild": "rimraf dist",
