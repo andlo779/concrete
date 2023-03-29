@@ -34,7 +34,7 @@ function swaggerConfig() {
     )
     .setVersion(APP_VERSION)
     .setContact(
-      'Andreas Lord',
+      'Concrete',
       'https://github.com/andlo779/concrete',
       'andlo779@gmail.com',
     )
