@@ -1,6 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
 
+export enum CONDITION {
+  M = 'Mint',
+  NM = 'Near Mint',
+  'VG+' = 'Very Good Plus',
+  VG = 'Very Good',
+  'G+' = 'Good Plus',
+  G = 'Good',
+  P = 'Poor',
+}
 export class AddRecordRequest {
   @ApiProperty({ type: String, required: true })
   @IsString()
@@ -19,4 +28,7 @@ export class AddRecordRequest {
   @ApiProperty({ type: String })
   @IsString()
   imageUrl: string;
+  @ApiProperty({ type: String, enum: CONDITION })
+  @IsEnum(CONDITION)
+  condition: CONDITION;
 }

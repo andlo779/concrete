@@ -1,5 +1,12 @@
-import { Conditions } from './conditions.model';
-
+export enum Condition {
+  M = 'Mint',
+  NM = 'Near Mint',
+  'VG+' = 'Very Good Plus',
+  VG = 'Very Good',
+  'G+' = 'Good Plus',
+  G = 'Good',
+  P = 'Poor',
+}
 export class Record {
   id: string;
   artist: string;
@@ -7,6 +14,6 @@ export class Record {
   productionYear: string;
   printedYear: string;
   imageUrl: string;
-  //conditions: Conditions;
+  condition: Condition;
   addedAt: Date;
 }

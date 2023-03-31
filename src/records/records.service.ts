@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { RecordsCollectionRepository } from './records-collection.repository';
 import { RecordsCollection } from './model/records-collection.model';
 import { randomUUID } from 'crypto';
-import { Record } from './model/record.model';
+import { Condition, Record } from './model/record.model';
 
 @Injectable()
 export class RecordsService {
@@ -57,6 +57,7 @@ export class RecordsService {
     newRecord.imageUrl = record.imageUrl;
     newRecord.productionYear = record.productionYear;
     newRecord.printedYear = record.printedYear;
+    newRecord.condition = Condition.G;
     newRecord.addedAt = new Date();
 
     collection.records.push(newRecord);

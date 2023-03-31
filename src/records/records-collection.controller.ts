@@ -21,12 +21,12 @@ import { RecordsCollectionResponse } from './dto/records-collection.response';
 import { RecordsCollectionMapper } from './records-collection.mapper';
 import { CreateCollectionRequest } from './dto/create-collection.request';
 import { AddRecordRequest } from './dto/add-record.request';
-import { ChangeNameRequest } from './dto/change-name.request';
+import { ChangeCollectionNameRequest } from './dto/change-collection-name.request';
 import { UpdateRecordRequest } from './dto/update-record.request';
 
 @ApiTags('Records')
 @ApiConsumes('application/json')
-@Controller('records-collection')
+@Controller('records-collections')
 export class RecordsCollectionController {
   logger = new Logger(RecordsCollectionController.name);
   constructor(private readonly recordService: RecordsService) {}
@@ -104,7 +104,7 @@ export class RecordsCollectionController {
   @Patch(':collectionId/name')
   async changeName(
     @Param('collectionId') collectionId: string,
-    @Body() request: ChangeNameRequest,
+    @Body() request: ChangeCollectionNameRequest,
   ): Promise<RecordsCollectionResponse> {
     const collection = await this.recordService.changeCollectionName(
       collectionId,
