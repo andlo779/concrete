@@ -50,7 +50,7 @@
     "passport-custom": "^1.1.1",
     "passport-http": "^0.3.0",
     "passport-jwt": "^4.0.1",
-    "qrcode": "^1.5.1",
+    "qrcode": "^1.5.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^5.0.1",
     "swagger-ui-express": "^4.6.2"
