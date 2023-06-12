@@ -33,7 +33,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@nestjs/common": "^9.4.0",
+    "@nestjs/common": "^9.4.2",
     "@nestjs/config": "^2.3.1",
     "@nestjs/core": "^9.4.2",
     "@nestjs/mapped-types": "^1.2.0",
