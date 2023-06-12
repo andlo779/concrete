@@ -52,7 +52,7 @@
     "passport-jwt": "^4.0.1",
     "qrcode": "^1.5.1",
     "reflect-metadata": "^0.1.13",
-    "rimraf": "^5.0.0",
+    "rimraf": "^5.0.1",
     "swagger-ui-express": "^4.6.2"
   },
   "devDependencies": {
