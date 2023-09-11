@@ -42,9 +42,8 @@ export class RecordsService {
       imageUrl: string;
     },
   ): Promise<RecordsCollection> {
-    const collection = await this.recordsCollectionRepository.findOneById(
-      collectionId,
-    );
+    const collection =
+      await this.recordsCollectionRepository.findOneById(collectionId);
     if (!collection) {
       throw new NotFoundException();
     }
@@ -68,9 +67,8 @@ export class RecordsService {
     collectionId: string,
     newName: string,
   ): Promise<RecordsCollection> {
-    const collection = await this.recordsCollectionRepository.findOneById(
-      collectionId,
-    );
+    const collection =
+      await this.recordsCollectionRepository.findOneById(collectionId);
     if (!collection) {
       throw new NotFoundException();
     }
@@ -89,9 +87,8 @@ export class RecordsService {
       productionYear: string;
     },
   ): Promise<RecordsCollection> {
-    const collection = await this.recordsCollectionRepository.findOneById(
-      collectionId,
-    );
+    const collection =
+      await this.recordsCollectionRepository.findOneById(collectionId);
     if (!collection) {
       throw new NotFoundException(
         `No collection found with given collectionId: ${collectionId}`,
