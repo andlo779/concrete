@@ -46,7 +46,7 @@ export class RecordsCollectionRepository
     const result = await this.collection.findOneAndUpdate(
       { id: recordsCollection.id },
       { $set: { ...recordsCollection } },
-      { returnDocument: 'after' },
+      { returnDocument: 'after', includeResultMetadata: true },
     );
 
     if (result.ok) {

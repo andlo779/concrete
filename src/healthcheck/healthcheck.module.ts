@@ -26,7 +26,6 @@ import { Db, MongoClient } from 'mongodb';
 
           const client = await MongoClient.connect(databaseConnection, {
             connectTimeoutMS: 500,
-            keepAlive: false,
             serverSelectionTimeoutMS: 500,
             maxPoolSize: 1,
           });

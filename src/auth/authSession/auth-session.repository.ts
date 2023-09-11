@@ -46,7 +46,7 @@ export class AuthSessionRepository implements RepositoryInterface<AuthSession> {
     const result = await this.collection.findOneAndUpdate(
       { id: session.id },
       { $set: { ...session } },
-      { returnDocument: 'after' },
+      { returnDocument: 'after', includeResultMetadata: true },
     );
     if (result.ok) {
       return AuthSessionMapper.documentToModel(result.value);

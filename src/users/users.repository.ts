@@ -46,7 +46,7 @@ export class UsersRepository implements RepositoryInterface<User> {
     const result = await this.collection.findOneAndUpdate(
       { name: user.name },
       { $set: { ...user } },
-      { returnDocument: 'after' },
+      { returnDocument: 'after', includeResultMetadata: true },
     );
     if (result.ok) {
       return UsersMapper.documentToModel(result.value);

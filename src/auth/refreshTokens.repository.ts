@@ -51,7 +51,7 @@ export class RefreshTokensRepository
     const result = await this.collection.findOneAndUpdate(
       { id: refreshToken.id },
       { $set: { ...refreshToken } },
-      { returnDocument: 'after' },
+      { returnDocument: 'after', includeResultMetadata: true },
     );
     if (result.ok) {
       return RefreshTokenMapper.documentToModel(result.value);
