@@ -51,7 +51,7 @@
     "passport-http": "^0.3.0",
     "passport-jwt": "^4.0.1",
     "qrcode": "^1.5.3",
-    "reflect-metadata": "^0.1.13",
+    "reflect-metadata": "^0.1.14",
     "rimraf": "^5.0.5",
     "swagger-ui-express": "^5.0.0"
   },
