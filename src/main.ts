@@ -20,8 +20,8 @@ async function bootstrap() {
   try {
     await app.listen(port, '0.0.0.0');
     logger.log(`NestJs application is listening on ${await app.getUrl()}`);
-  } catch (e) {
-    logger.error(e);
+  } catch (error) {
+    logger.error(error);
   }
 }
 bootstrap();
