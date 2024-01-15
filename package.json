@@ -42,7 +42,7 @@
     "@nestjs/swagger": "^7.1.17",
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
-    "class-validator": "^0.14.0",
+    "class-validator": "^0.14.1",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "otplib": "^12.0.1",
