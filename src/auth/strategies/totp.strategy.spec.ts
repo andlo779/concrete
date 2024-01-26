@@ -64,9 +64,9 @@ describe('TotpStrategy', () => {
   });
 
   describe('getAndValidateSessionIdFromUrlPath()', () => {
-    it('GIVEN url-path with "authSession/:sessionId" WHEN calling function THEN return the sessionId', () => {
+    it('GIVEN url-path with "auth-session/:sessionId" WHEN calling function THEN return the sessionId', () => {
       const path =
-        '/auth/token/authSession/aab1affd-92af-4726-b4f6-207ee91cc6fd';
+        '/auth/token/auth-session/aab1affd-92af-4726-b4f6-207ee91cc6fd';
 
       const result = TotpStrategy.getAndValidateSessionIdFromUrlPath(path);
 

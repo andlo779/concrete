@@ -23,6 +23,7 @@ import { NextStepResponse } from './dto/next-step.response';
 import { TotpAuthGuard } from './guards/totp-auth.guard';
 import { JwtRefreshAuthGuard } from './guards/jwt_refresh-auth.guard';
 import { SimpleErrorDto } from '../common/simple-error.dto';
+import { RequestWithUser } from './requestWithUser';
 
 @ApiTags('Auth')
 @Controller('/auth')
@@ -50,7 +51,9 @@ export class AuthController {
   @ApiUnauthorizedResponse({ type: SimpleErrorDto })
   @UseGuards(AuthGuard('basic'))
   @Get('/token')
-  async getToken(@Request() req): Promise<TokenResponse | NextStepResponse> {
+  async getToken(
+    @Request() req: RequestWithUser,
+  ): Promise<TokenResponse | NextStepResponse> {
     return this.authService.handleTokenRequest(req.user);
   }
 
@@ -63,7 +66,7 @@ export class AuthController {
   @UseGuards(TotpAuthGuard)
   @Get('/auth-session/:authSessionId/token')
   async getTokenWith2fa(
-    @Request() req,
+    @Request() req: RequestWithUser,
     @Param('authSessionId') authSessionId: string,
   ): Promise<TokenResponse> {
     return this.authService.handle2faTokenRequest(req.user, authSessionId);
@@ -77,11 +80,29 @@ export class AuthController {
   @ApiUnauthorizedResponse({ type: SimpleErrorDto })
   @UseGuards(JwtRefreshAuthGuard)
   @Get('/token/refresh')
-  async getTokenWithRefreshToken(@Request() req): Promise<TokenResponse> {
+  async getTokenWithRefreshToken(
+    @Request() req: RequestWithUser,
+  ): Promise<TokenResponse> {
     //ToDo: validation of userId and tokenId??
     return await this.authService.handleRefreshTokenRequest(
       req.user.userId,
-      req.user.tokenId,
+      req.tokenId,
     );
+
+    /*
+    What is the problem? We are using the User type from the the User domain model and it does not have a tokenId property.
+    It does have much other properties that should not be exposed to the outside world. So we need to create a new type
+    that is only used for the token request. We can do this by creating a new DTO (Data Transfer Object) in the auth
+    module. Create a new file named token.request.ts in the auth/dto folder with the following content:
+
+    Solution:
+    New user type that authorization attaches to request objects that only holds the data/properties needed.
+    * UserId
+    * TokenId
+
+    If a user object exists on the request object, this means that a user is authenticated.
+    Question: If we already need to fetch a user from DB during authentication, should we then return it, so we don't need
+    to fetch it again? (Not all authentication need to fetch user from DB, e.g. Basic auth so the behaviour would not be consistent
+     */
   }
 }
