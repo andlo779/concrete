@@ -17,6 +17,7 @@
     "node": ">=20.10.0",
     "npm": ">=10.2.0"
   },
+  "main": "dist/main.js",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
