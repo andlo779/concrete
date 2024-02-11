@@ -1,5 +1,5 @@
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
+import { AuthController } from './api/auth.controller';
+import { AuthService } from './service/auth.service';
 import { AuthSessionModule } from './authSession/auth-session.module';
 import { BasicStrategy } from './strategies/basic.strategy';
 import { ConfigModule } from '@nestjs/config';
@@ -11,8 +11,9 @@ import { TotpStrategy } from './strategies/totp.strategy';
 import { UsersModule } from '../users/users.module';
 import { TotpModule } from './totp/totp.module';
 import { JwtRefreshStrategy } from './strategies/jwt-refresh.strategy';
-import { RefreshTokensRepository } from './refreshTokens.repository';
-import { TokenService } from './token.service';
+import { RefreshTokensRepository } from './model/refreshTokens.repository';
+import { TokenService } from './service/token.service';
+import { TotpService } from './totp/totp.service';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { TokenService } from './token.service';
     RefreshTokensRepository,
     TokenService,
     TotpStrategy,
+    TotpService,
   ],
   controllers: [AuthController],
 })

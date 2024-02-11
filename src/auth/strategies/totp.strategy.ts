@@ -8,9 +8,9 @@ import {
 } from '@nestjs/common';
 import { Strategy } from 'passport-custom';
 import { Request } from 'express';
-import { AuthService } from '../auth.service';
-import { User } from '../../users/model/user.model';
+import { AuthService } from '../service/auth.service';
 import { isUUID } from 'class-validator';
+import { User } from '../model/request-with-user.model';
 
 @Injectable()
 export class TotpStrategy extends PassportStrategy(Strategy, 'totp') {

@@ -1,6 +1,6 @@
 import { AuthController } from './auth.controller';
 import { mock } from 'jest-mock-extended';
-import { AuthService } from './auth.service';
+import { AuthService } from '../service/auth.service';
 
 describe('AuthController', () => {
   const mockAuthService = mock<AuthService>();

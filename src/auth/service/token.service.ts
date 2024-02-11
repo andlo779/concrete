@@ -1,15 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { RefreshTokensRepository } from './refreshTokens.repository';
+import { RefreshTokensRepository } from '../model/refreshTokens.repository';
 import { ConfigService } from '@nestjs/config';
 import {
   AUTH_JWT_AUTH_EXP_TIME,
   AUTH_JWT_AUTH_SECRET_KEY,
   AUTH_JWT_REFRESH_EXP_TIME,
   AUTH_JWT_REFRESH_SECRET_KEY,
-} from '../constants';
+} from '../../constants';
 import { randomUUID } from 'crypto';
-import { User } from '../users/model/user.model';
-import { RefreshToken } from './model/refresh.token';
+import { RefreshToken } from '../model/refresh.token';
 import { sign } from 'jsonwebtoken';
 
 @Injectable()
@@ -23,14 +22,13 @@ export class TokenService {
     tokenId: string,
     userId: string,
   ): Promise<string> {
-    const oldToken = await this.refreshTokensRepository.findOneById(tokenId);
+    const oldToken = await this.refreshTokensRepository.findOneById(userId);
     if (!oldToken) {
-      console.log('shit');
       throw new NotFoundException(
-        'No RefreshToken with requested id could be found.',
+        `No RefreshToken for userId: ${userId} could be found.`,
       );
     }
-    await this.refreshTokensRepository.remove(tokenId);
+    await this.refreshTokensRepository.remove(oldToken.id);
     const newToken = await this.addNewRefreshToken(userId);
     return newToken.token;
   }
@@ -44,7 +42,15 @@ export class TokenService {
     return await this.refreshTokensRepository.insert(refreshToken);
   }
 
-  generateAuthToken(user: User): string {
+  generateAuthToken({
+    userId,
+    userName,
+    userEmail,
+  }: {
+    userId: string;
+    userName: string;
+    userEmail: string;
+  }): string {
     const expireIn = this.configService.get<string>(
       AUTH_JWT_AUTH_EXP_TIME,
       '1m',
@@ -53,9 +59,9 @@ export class TokenService {
 
     return sign(
       {
-        preferred_username: user.name,
-        sub: user.userId,
-        email: user.email,
+        preferred_username: userName,
+        sub: userId,
+        email: userEmail,
       },
       secret,
       {

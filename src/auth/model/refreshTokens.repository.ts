@@ -2,11 +2,11 @@ import { Inject, Injectable } from '@nestjs/common';
 import {
   MONGO_CLIENT,
   MONGO_COLLECTION_AUTH_REFRESH_TOKEN,
-} from '../constants';
+} from '../../constants';
 import { Collection, Db } from 'mongodb';
-import { RepositoryInterface } from '../repository.interface';
-import { RefreshToken } from './model/refresh.token';
-import { RefreshTokenMapper } from './model/refresh-token.mapper';
+import { RepositoryInterface } from '../../repository.interface';
+import { RefreshToken } from './refresh.token';
+import { RefreshTokenMapper } from './refresh-token.mapper';
 
 @Injectable()
 export class RefreshTokensRepository

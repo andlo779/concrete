@@ -4,32 +4,30 @@ import {
   Logger,
   NotFoundException,
 } from '@nestjs/common';
-import { UsersService } from '../users/users.service';
+import { UsersService } from '../../users/users.service';
 import * as bcrypt from 'bcrypt';
-import { User } from '../users/model/user.model';
-import { ConfigService } from '@nestjs/config';
-import { AuthSessionService } from './authSession/auth-session.service';
-import { AuthSteps } from './dto/next-step.response';
-import { TotpService } from './totp/totp.service';
+import { AuthSessionService } from '../authSession/auth-session.service';
+import { AuthSteps } from '../api/dto/next-step.response';
+import { TotpService } from '../totp/totp.service';
 import { TokenService } from './token.service';
+import { User } from '../model/request-with-user.model';
 
 @Injectable()
 export class AuthService {
   logger = new Logger(AuthService.name);
 
   constructor(
-    private readonly configService: ConfigService,
     private readonly userService: UsersService,
     private readonly authSessionService: AuthSessionService,
     private readonly totpService: TotpService,
     private readonly tokenService: TokenService,
   ) {}
 
-  async validateUser(username: string, password: string): Promise<User> {
+  async validateUser(username: string, password: string): Promise<string> {
     try {
       const user = await this.userService.findWithUsername(username);
       if (user && (await bcrypt.compare(password, user.password))) {
-        return user;
+        return user.userId;
       }
     } catch (e) {
       if (e instanceof NotFoundException) {
@@ -37,7 +35,6 @@ export class AuthService {
       }
       throw e;
     }
-    return null;
   }
 
   async validateTwoFactorAuthentication(
@@ -56,11 +53,12 @@ export class AuthService {
   }
 
   async handleTokenRequest(
-    user: User,
+    userId: string,
   ): Promise<
     | { nextStep: AuthSteps; sessionId: string }
     | { accessToken: string; refreshToken: string }
   > {
+    const user = await this.userService.findWithId(userId);
     if (user.isTwoFactorAuthEnabled()) {
       const sessionId = await this.authSessionService.createAuthSession(
         user.userId,
@@ -69,17 +67,21 @@ export class AuthService {
       return { nextStep: AuthSteps.TOTP, sessionId: sessionId };
     } else {
       return {
-        accessToken: this.tokenService.generateAuthToken(user),
+        accessToken: this.tokenService.generateAuthToken({
+          userId: user.userId,
+          userName: user.name,
+          userEmail: user.email,
+        }),
         refreshToken: await this.tokenService.generateRefreshToken(user.userId),
       };
     }
   }
 
   async handle2faTokenRequest(
-    user: User,
+    userId: string,
     sessionId: string,
   ): Promise<{ accessToken: string; refreshToken: string }> {
-    const authSession = await this.authSessionService.getByUSerId(user.userId);
+    const authSession = await this.authSessionService.getByUSerId(userId);
     if (
       !authSession ||
       authSession.id !== sessionId ||
@@ -87,9 +89,15 @@ export class AuthService {
     ) {
       throw new ForbiddenException('Auth session not valid');
     }
+    //ToDo: Is this the right order here? Do I need to do some user validation?
+    const user = await this.userService.findWithId(userId);
     await this.authSessionService.deleteBySessionId(sessionId);
     return {
-      accessToken: this.tokenService.generateAuthToken(user),
+      accessToken: this.tokenService.generateAuthToken({
+        userId: user.userId,
+        userName: user.name,
+        userEmail: user.email,
+      }),
       refreshToken: await this.tokenService.generateRefreshToken(user.userId),
     };
   }
@@ -101,6 +109,7 @@ export class AuthService {
     accessToken: string;
     refreshToken: string;
   }> {
+    this.logger.debug(`userId: ${userId}, refreshTokenId: ${refreshTokenId}`);
     let newRefreshToken;
     let user;
     try {
@@ -111,6 +120,7 @@ export class AuthService {
         );
       user = await this.userService.findWithId(userId);
     } catch (e) {
+      this.logger.error(e);
       throw new ForbiddenException('RefreshToken could not be validated');
     }
     if (!user) {
