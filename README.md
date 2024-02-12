@@ -72,12 +72,14 @@ Example .env file is committed in repository.
 ENV variables will override .env file, so .env file can be left in build even if one wants to override its values. 
 
 ## Open API Specification
-A Swagger server is hosted within the app and can be reached via _/api_ or the json schema via _/api-json_
+A Swagger server is hosted within the app and can be reached via _/api_ or the json schema via _/api-json_ when running the app. 
 
 ## Authentication
 Authentication mechanism is supported within the application. Users need to obtain a token via basic authentication to be able to use the REST services offered by the application.
 
 Users can also opt in for Second Factor Authentication for increased security. If user enables 2FA and TOTP password from an Authenticator app is needed to gain a token. (More information with flow charts will be provided.)
+
+Succefful authentication with generate two tokens, one jwt token for accessign REST endpoint, and a refresh oken. The refresh token is a one-time-use token that can be used to obtain a new access token if the current ine is expired. See API documentation for more information. 
 
 ## Database
 This project is set up to use __MongoDb__ as database. In the _sourcecode- folder data files are provided to populate the database to be able to run the application and should be applied before first start.
