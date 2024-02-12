@@ -2,15 +2,9 @@ import { deserialize, serialize } from 'bson';
 import { AuthSession } from './auth-session.model';
 import { AuthSessionMapper } from './auth-session.mapper';
 
-describe('AuthSessionMapper', () => {
+describe('AuthSessionMapper test', () => {
   function generateAuthSession(): AuthSession {
-    const session = new AuthSession();
-    session.id = 'testId';
-    session.userId = 'userId';
-    session.ttl = 2;
-    session.createdAt = new Date();
-
-    return session;
+    return new AuthSession('userId', 2, 'testId', new Date());
   }
 
   describe('documentToModel()', () => {

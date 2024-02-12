@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { AuthSessionRepository } from '../model/auth-session.repository';
 import { AuthSession } from '../model/auth-session.model';
-import { randomUUID } from 'crypto';
 import { ConfigService } from '@nestjs/config';
 import { AUTH_SESSION_EXP_TIME } from '../../constants';
 
@@ -17,11 +16,7 @@ export class AuthSessionService {
     if (oldSession) {
       await this.authSessionRepository.remove(oldSession.id);
     }
-    const session = new AuthSession();
-    session.id = randomUUID();
-    session.userId = userId;
-    session.createdAt = new Date();
-    session.ttl = this.getTimeToLive();
+    const session = new AuthSession(userId, this.getTimeToLive());
 
     const result = await this.authSessionRepository.insert(session);
     return result.id;
