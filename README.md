@@ -100,6 +100,9 @@ mongoimport -u root -p password --authenticationDatabase admin -d concrete -c us
 ## Backlog
 Official backlog can be found in [GitHub Projects](https://github.com/users/andlo779/projects/2/views/2)
 
+## Issue reporting
+Everyone can create new issues in the repository, please add you conceerns or ideas and we will respond to you as sson as we can. 
+
 ## Author
 [Andreas Lord](mailto:andlo779@gmail.com) 
 
