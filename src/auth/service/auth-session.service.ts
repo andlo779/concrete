@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { AuthSessionRepository } from './auth-session.repository';
-import { AuthSession } from './model/auth-session.model';
+import { AuthSessionRepository } from '../model/auth-session.repository';
+import { AuthSession } from '../model/auth-session.model';
 import { randomUUID } from 'crypto';
 import { ConfigService } from '@nestjs/config';
 import { AUTH_SESSION_EXP_TIME } from '../../constants';

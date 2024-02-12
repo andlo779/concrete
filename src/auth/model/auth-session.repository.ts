@@ -1,5 +1,5 @@
 import { RepositoryInterface } from '../../repository.interface';
-import { AuthSession } from './model/auth-session.model';
+import { AuthSession } from './auth-session.model';
 import { Inject, Injectable } from '@nestjs/common';
 import { MONGO_CLIENT, MONGO_COLLECTION_AUTH_SESSION } from '../../constants';
 import { Collection, Db } from 'mongodb';

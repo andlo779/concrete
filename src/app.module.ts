@@ -6,7 +6,6 @@ import {
 } from '@nestjs/common';
 import { APP_FILTER, APP_PIPE } from '@nestjs/core';
 import { AuthModule } from './auth/auth.module';
-import { AuthSessionModule } from './auth/authSession/auth-session.module';
 import { ConfigModule } from '@nestjs/config';
 import { HealthcheckModule } from './healthcheck/healthcheck.module';
 import { RecordsModule } from './records/records.module';
@@ -17,7 +16,6 @@ import { AppExceptionFilter } from './app-exception.filter';
 @Module({
   imports: [
     AuthModule,
-    AuthSessionModule,
     ConfigModule.forRoot({ isGlobal: true }),
     HealthcheckModule,
     RecordsModule,

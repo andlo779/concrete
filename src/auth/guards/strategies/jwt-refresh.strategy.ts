@@ -2,8 +2,8 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { ConfigService } from '@nestjs/config';
-import { AUTH_JWT_REFRESH_SECRET_KEY } from '../../constants';
-import { User } from '../model/request-with-user.model';
+import { AUTH_JWT_REFRESH_SECRET_KEY } from '../../../constants';
+import { User } from '../../model/request-with-user.model';
 import { JwtPayload } from 'jsonwebtoken';
 
 @Injectable()

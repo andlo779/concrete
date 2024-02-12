@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { UsersService } from '../../users/users.service';
 import * as bcrypt from 'bcrypt';
-import { AuthSessionService } from '../authSession/auth-session.service';
+import { AuthSessionService } from './auth-session.service';
 import { AuthSteps } from '../api/dto/next-step.response';
 import { TotpService } from '../totp/totp.service';
 import { TokenService } from './token.service';

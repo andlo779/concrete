@@ -1,5 +1,5 @@
 import { deserialize, serialize } from 'bson';
-import { AuthSession } from './model/auth-session.model';
+import { AuthSession } from './auth-session.model';
 import { AuthSessionMapper } from './auth-session.mapper';
 
 describe('AuthSessionMapper', () => {

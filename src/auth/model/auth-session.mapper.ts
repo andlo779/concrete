@@ -1,4 +1,4 @@
-import { AuthSession } from './model/auth-session.model';
+import { AuthSession } from './auth-session.model';
 
 export class AuthSessionMapper {
   static documentToModel(doc: any): AuthSession {
