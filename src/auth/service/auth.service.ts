@@ -47,9 +47,9 @@ export class AuthService {
     }
     const user = await this.userService.findWithId(session.userId);
     if (this.totpService.validateToken(token, user.twoFactorAuthSecret)) {
-      return user;
+      return { userId: user.userId };
     }
-    return null;
+    throw new ForbiddenException('Token not valid');
   }
 
   async handleTokenRequest(
