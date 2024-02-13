@@ -2,6 +2,7 @@ import { RecordsCollection } from './model/records-collection.model';
 import { RecordsCollectionResponse } from './dto/records-collection.response';
 import { RecordResponse } from './dto/record.response';
 import { Record } from './model/record.model';
+import { Document } from 'mongodb';
 
 export class RecordsCollectionMapper {
   static modelToDto(collection: RecordsCollection): RecordsCollectionResponse {
@@ -13,7 +14,7 @@ export class RecordsCollectionMapper {
     return dto;
   }
 
-  static documentToModel(doc: any): RecordsCollection {
+  static documentToModel(doc: Document): RecordsCollection {
     const recordCollection = new RecordsCollection();
     recordCollection.id = doc.id;
     recordCollection.name = doc.name;
@@ -35,7 +36,7 @@ export class RecordsCollectionMapper {
     return dto;
   }
 
-  private static recordDocToDomain(doc: any): Record {
+  private static recordDocToDomain(doc: Document): Record {
     const record = new Record();
     record.id = doc.id;
     record.name = doc.name;

@@ -30,7 +30,7 @@ export class AuthSessionService {
     return await this.authSessionRepository.findOneById(sessionId);
   }
 
-  async deleteBySessionId(sessionId: string) {
+  async deleteBySessionId(sessionId: string): Promise<void> {
     await this.authSessionRepository.remove(sessionId);
   }
 

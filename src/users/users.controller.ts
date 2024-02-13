@@ -90,13 +90,12 @@ export class UsersController {
   async changePassword(
     @Param('userid') userId: string,
     @Body() changePasswordRequest: ChangePasswordRequest,
-  ): Promise<any> {
+  ): Promise<void> {
     await this.usersService.changePassword(
       userId,
       changePasswordRequest.oldPassword,
       changePasswordRequest.newPassword,
     );
-    return Promise.resolve();
   }
 
   @ApiOkResponse({ type: Enable2faResponse })
@@ -116,17 +115,15 @@ export class UsersController {
   async enableTwoFactorAuth(
     @Param('userId') userId: string,
     @Param('token') token: string,
-  ): Promise<any> {
+  ): Promise<void> {
     await this.usersService.validateAndEnableTwoFactorAuth(userId, token);
-    return Promise.resolve();
   }
 
   @ApiNoContentResponse()
   @ApiForbiddenResponse({ type: SimpleErrorDto })
   @HttpCode(HttpStatus.NO_CONTENT)
   @Patch(':userId/disable2fa')
-  async disableTwoFactorAuth(@Param('userId') userId: string): Promise<any> {
+  async disableTwoFactorAuth(@Param('userId') userId: string): Promise<void> {
     await this.usersService.disableTwoFactorAuth(userId);
-    return Promise.resolve();
   }
 }

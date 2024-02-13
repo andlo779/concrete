@@ -60,7 +60,7 @@ export class UsersService {
     userId: string,
     oldPassword: string,
     newPassword: string,
-  ) {
+  ): Promise<void> {
     const user = await this.usersRepository.findOneById(userId);
     if (!user) {
       throw new NotFoundException();
@@ -104,7 +104,10 @@ export class UsersService {
     };
   }
 
-  async validateAndEnableTwoFactorAuth(userId: string, token: string) {
+  async validateAndEnableTwoFactorAuth(
+    userId: string,
+    token: string,
+  ): Promise<void> {
     const user = await this.usersRepository.findOneById(userId);
     if (!user) {
       throw new NotFoundException();
@@ -122,7 +125,7 @@ export class UsersService {
     }
   }
 
-  async disableTwoFactorAuth(userId: string) {
+  async disableTwoFactorAuth(userId: string): Promise<void> {
     const user = await this.usersRepository.findOneById(userId);
     if (!user) {
       throw new NotFoundException();

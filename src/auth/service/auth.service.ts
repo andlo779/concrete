@@ -127,7 +127,11 @@ export class AuthService {
       throw new ForbiddenException('RefreshToken could not be validated');
     }
     return {
-      accessToken: this.tokenService.generateAuthToken(user),
+      accessToken: this.tokenService.generateAuthToken({
+        userId: user.userId,
+        userName: user.name,
+        userEmail: user.email,
+      }),
       refreshToken: newRefreshToken,
     };
   }

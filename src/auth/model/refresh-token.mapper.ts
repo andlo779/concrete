@@ -1,7 +1,8 @@
 import { RefreshToken } from './refresh.token';
+import { Document } from 'mongodb';
 
 export class RefreshTokenMapper {
-  static documentToModel(doc: any): RefreshToken {
+  static documentToModel(doc: Document): RefreshToken {
     const refreshToken = new RefreshToken();
     refreshToken.id = doc.id;
     refreshToken.userId = doc.userId;

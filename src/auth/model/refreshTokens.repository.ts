@@ -59,11 +59,11 @@ export class RefreshTokensRepository
     return undefined;
   }
 
-  async remove(id: string) {
+  async remove(id: string): Promise<void> {
     await this.collection.deleteOne({ id: id });
   }
 
-  async removeByUserId(userId: string) {
+  async removeByUserId(userId: string): Promise<void> {
     await this.collection.deleteOne({ userId: userId });
   }
 }

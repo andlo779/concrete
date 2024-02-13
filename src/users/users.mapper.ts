@@ -1,5 +1,6 @@
 import { User } from './model/user.model';
 import { UserResponse } from './dto/user.response';
+import { Document } from 'mongodb';
 
 export class UsersMapper {
   static domainToDto(user: User): UserResponse {
@@ -11,7 +12,7 @@ export class UsersMapper {
     return userDto;
   }
 
-  static documentToModel(doc: any): User {
+  static documentToModel(doc: Document): User {
     const user = new User();
     user.userId = doc.userId;
     user.name = doc.name;

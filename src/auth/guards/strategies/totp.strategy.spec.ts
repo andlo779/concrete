@@ -23,11 +23,9 @@ describe('TotpStrategy', () => {
     });
 
     it('GIVEN undefined input WHEN function is called THEN throw BadRequestException', () => {
-      const codedToken = undefined;
-
-      expect(() =>
-        TotpStrategy.decodeAndValidateAuthHeader(codedToken),
-      ).toThrow(BadRequestException);
+      expect(() => TotpStrategy.decodeAndValidateAuthHeader(undefined)).toThrow(
+        BadRequestException,
+      );
     });
 
     it('GIVEN input with more then 2 blank spaces WHEN function is called THEN throw BadRequestException', () => {
@@ -82,10 +80,8 @@ describe('TotpStrategy', () => {
     });
 
     it('GIVEN undefined url-path WHEN calling function THEN throw InternalServerErrorException', () => {
-      const path = undefined;
-
       expect(() =>
-        TotpStrategy.getAndValidateSessionIdFromUrlPath(path),
+        TotpStrategy.getAndValidateSessionIdFromUrlPath(undefined),
       ).toThrow(InternalServerErrorException);
     });
 

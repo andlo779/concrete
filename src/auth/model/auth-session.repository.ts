@@ -54,7 +54,7 @@ export class AuthSessionRepository implements RepositoryInterface<AuthSession> {
     return undefined;
   }
 
-  async remove(id: string) {
+  async remove(id: string): Promise<void> {
     await this.collection.deleteOne({ id: id });
   }
 }

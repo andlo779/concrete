@@ -3,9 +3,9 @@ import { AppModule } from './app.module';
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { APP_PORT, APP_VERSION } from './constants';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 
-async function bootstrap() {
+async function bootstrap(): Promise<void> {
   const logger = new Logger('NestApplication');
 
   const app = await NestFactory.create(AppModule);
@@ -26,7 +26,7 @@ async function bootstrap() {
 }
 bootstrap();
 
-function swaggerConfig() {
+function swaggerConfig(): Omit<OpenAPIObject, 'paths'> {
   return new DocumentBuilder()
     .setTitle('Concrete')
     .setDescription(
