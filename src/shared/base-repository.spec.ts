@@ -35,6 +35,8 @@ class TestRepository extends BaseRepository<TestModel> {
     return this.collection.countDocuments();
   }
 }
+
+// ToDo: The test does not terminate after run , something is still active even though I kill everything in the afterAll() + does not look like Repository is working as expected, no data is return in the findById() test
 describe.skip('BaseRepository test', () => {
   let testApp: INestApplication;
   let testRepository: TestRepository;
