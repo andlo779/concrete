@@ -1,12 +1,15 @@
-import { RefreshToken } from './refresh.token';
+import { RefreshToken } from './refresh-token.model';
 import { Document } from 'mongodb';
 
 export class RefreshTokenMapper {
   static documentToModel(doc: Document): RefreshToken {
-    const refreshToken = new RefreshToken();
-    refreshToken.id = doc.id;
-    refreshToken.userId = doc.userId;
-    refreshToken.token = doc.token;
-    return refreshToken;
+    return new RefreshToken(
+      doc.id,
+      doc.userId,
+      doc.token,
+      doc.ttl,
+      doc.createdAt,
+      doc.updatedAt,
+    );
   }
 }

@@ -8,7 +8,7 @@ import {
   AUTH_JWT_REFRESH_SECRET_KEY,
 } from '../../constants';
 import { randomUUID } from 'crypto';
-import { RefreshToken } from '../model/refresh.token';
+import { RefreshToken } from '../model/refresh-token.model';
 import { sign } from 'jsonwebtoken';
 
 @Injectable()
@@ -28,16 +28,15 @@ export class TokenService {
         `No RefreshToken for userId: ${userId} could be found.`,
       );
     }
-    await this.refreshTokensRepository.remove(oldToken.id);
+    await this.refreshTokensRepository.remove(oldToken.xxid);
     const newToken = await this.addNewRefreshToken(userId);
     return newToken.token;
   }
 
   async addNewRefreshToken(userId: string): Promise<RefreshToken> {
-    const refreshToken = new RefreshToken();
-    refreshToken.id = randomUUID();
-    refreshToken.token = this.createRefreshToken(userId, refreshToken.id);
-    refreshToken.userId = userId;
+    const tokenId = randomUUID();
+    const token = this.createRefreshToken(userId, tokenId);
+    const refreshToken = new RefreshToken(userId, token, 1);
 
     return await this.refreshTokensRepository.insert(refreshToken);
   }

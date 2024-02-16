@@ -5,7 +5,7 @@ import {
 } from '../../constants';
 import { Collection, Db } from 'mongodb';
 import { RepositoryInterface } from '../../repository.interface';
-import { RefreshToken } from './refresh.token';
+import { RefreshToken } from './refresh-token.model';
 import { RefreshTokenMapper } from './refresh-token.mapper';
 
 @Injectable()
@@ -24,7 +24,7 @@ export class RefreshTokensRepository
   }
 
   async findOneById(id: string): Promise<RefreshToken> {
-    const doc = await this.collection.findOne<RefreshToken>({ id: id });
+    const doc = await this.collection.findOne<RefreshToken>({ xxid: id });
     if (doc) {
       return RefreshTokenMapper.documentToModel(doc);
     }
@@ -49,7 +49,7 @@ export class RefreshTokensRepository
 
   async update(refreshToken: RefreshToken): Promise<RefreshToken> {
     const result = await this.collection.findOneAndUpdate(
-      { id: refreshToken.id },
+      { xxid: refreshToken.xxid },
       { $set: { ...refreshToken } },
       { returnDocument: 'after', includeResultMetadata: true },
     );
@@ -60,7 +60,7 @@ export class RefreshTokensRepository
   }
 
   async remove(id: string): Promise<void> {
-    await this.collection.deleteOne({ id: id });
+    await this.collection.deleteOne({ xxid: id });
   }
 
   async removeByUserId(userId: string): Promise<void> {
