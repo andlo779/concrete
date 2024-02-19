@@ -52,7 +52,7 @@ describe.skip('BaseRepository test', () => {
         TestRepository,
         {
           provide: MONGO_CLIENT,
-          useFactory: async () => {
+          useFactory: async (): Promise<Db> => {
             const client = await MongoClient.connect(mongoUri);
             return client.db('test');
           },
