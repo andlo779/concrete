@@ -13,12 +13,6 @@ export class JwtRefreshStrategy extends PassportStrategy(
     super();
   }
 
-  // ToDo:
-  // 1. Need to delete old refresh tokens before storing a new one
-  // 2. Documents in db take the private property names, so they all start with "_"
-  // 3. Objects returned from DB are not of the correct type, they have the signature of the class, but not the methods
-
-  // Also should update the totp strategy to use bearer-http-strategy so we don't need to pars the auth header.....
   async validate(token: string): Promise<User> {
     try {
       const userId = await this.tokenService.validateRefreshToken(token);
