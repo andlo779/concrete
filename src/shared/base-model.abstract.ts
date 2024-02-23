@@ -1,21 +1,30 @@
 import { randomUUID } from 'crypto';
+import { Document } from 'mongodb';
 
 export abstract class BaseModel {
-  private _xxid: string;
+  private _id: string;
   private _createdAt: Date;
   private _updatedAt: Date;
 
   protected constructor();
   protected constructor(id: string, createdAt: Date, updatedAt: Date);
   protected constructor(id?: string, createdAt?: Date, updatedAt?: Date) {
-    this._xxid = id ? id : randomUUID();
+    this._id = id ? id : randomUUID();
     const newDate = new Date();
     this._createdAt = createdAt ? createdAt : newDate;
     this._updatedAt = updatedAt ? updatedAt : newDate;
   }
 
-  get xxid(): string {
-    return this._xxid;
+  toDoc(): Document {
+    return {
+      id: this._id,
+      createdAt: this._createdAt,
+      updatedAt: this._updatedAt,
+    };
+  }
+
+  get id(): string {
+    return this._id;
   }
 
   get createdAt(): Date {
@@ -26,8 +35,8 @@ export abstract class BaseModel {
     return this._updatedAt;
   }
 
-  set xxid(value: string) {
-    this._xxid = value;
+  set id(value: string) {
+    this._id = value;
   }
 
   set createdAt(value: Date) {
