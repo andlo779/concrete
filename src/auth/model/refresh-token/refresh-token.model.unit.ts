@@ -46,4 +46,18 @@ describe('RefreshToken test', () => {
       });
     });
   });
+
+  describe('GIVEN valid RefreshToken', () => {
+    const token = new RefreshToken('userId', new Date());
+    describe('WHEN calling toDoc() and then fromDoc()', () => {
+      const doc = token.toDoc();
+      const result = RefreshToken.fromDoc(doc);
+      it('THEN the result should be instance of RefreshToken', () => {
+        expect(result).toBeInstanceOf(RefreshToken);
+      });
+      it('THEN the result should be same as original token', () => {
+        expect(result).toStrictEqual(token);
+      });
+    });
+  });
 });
