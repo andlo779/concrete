@@ -7,7 +7,7 @@ import { PingExceptionFilter } from './ping-exception.filter';
 import { PingException } from './ping.exception';
 
 @ApiTags('Health check')
-@Controller('healthcheck')
+@Controller('health')
 export class HealthcheckController {
   logger = new Logger(HealthcheckController.name);
   constructor(private readonly dbStatusService: DbStatusService) {}
@@ -21,7 +21,7 @@ export class HealthcheckController {
   }
 
   @ApiOkResponse({ type: StatusResponse })
-  @Get('status')
+  @Get()
   async status(): Promise<StatusResponse> {
     const response = new StatusResponse();
     if (await this.dbStatusService.isDbUp()) {

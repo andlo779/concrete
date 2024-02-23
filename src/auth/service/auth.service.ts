@@ -104,25 +104,24 @@ export class AuthService {
 
   async handleRefreshTokenRequest(
     userId: string,
-    refreshTokenId: string,
+    refreshToken: string,
   ): Promise<{
     accessToken: string;
     refreshToken: string;
   }> {
-    this.logger.debug(`userId: ${userId}, refreshTokenId: ${refreshTokenId}`);
     let newRefreshToken;
-    let user;
     try {
       newRefreshToken =
         await this.tokenService.generateNewRefreshTokenIfOldExists(
-          refreshTokenId,
+          refreshToken,
           userId,
         );
-      user = await this.userService.findWithId(userId);
     } catch (e) {
       this.logger.error(e);
       throw new ForbiddenException('RefreshToken could not be validated');
     }
+    const user = await this.userService.findWithId(userId);
+
     if (!user) {
       throw new ForbiddenException('RefreshToken could not be validated');
     }

@@ -10,11 +10,11 @@ import { TotpStrategy } from './guards/strategies/totp.strategy';
 import { UsersModule } from '../users/users.module';
 import { TotpModule } from './totp/totp.module';
 import { JwtRefreshStrategy } from './guards/strategies/jwt-refresh.strategy';
-import { RefreshTokensRepository } from './model/refreshTokens.repository';
 import { TokenService } from './service/token.service';
 import { TotpService } from './totp/totp.service';
 import { AuthSessionService } from './service/auth-session.service';
-import { AuthSessionRepository } from './model/auth-session.repository';
+import { AuthSessionRepository } from './model/auth-session/auth-session.repository';
+import { RefreshTokenRepository } from './model/refresh-token/refresh-token.repository';
 
 @Module({
   imports: [ConfigModule, MongoModule, PassportModule, UsersModule, TotpModule],
@@ -25,7 +25,7 @@ import { AuthSessionRepository } from './model/auth-session.repository';
     BasicStrategy,
     JwtStrategy,
     JwtRefreshStrategy,
-    RefreshTokensRepository,
+    RefreshTokenRepository,
     TokenService,
     TotpStrategy,
     TotpService,
