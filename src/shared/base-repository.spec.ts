@@ -3,7 +3,7 @@ import { BaseModel } from './base-model.abstract';
 import { BaseRepository } from './base-repository.abstract';
 import { INestApplication, Inject, Injectable } from '@nestjs/common';
 import { MONGO_CLIENT } from '../constants';
-import { Db, MongoClient } from 'mongodb';
+import { Db, Document, MongoClient } from 'mongodb';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 
 const TEST_BD_COLLECTION = 'TestCollection';
@@ -17,6 +17,17 @@ class TestModel extends BaseModel {
     this._data = data;
   }
 
+  toDoc(): Document {
+    return {
+      ...super.toDoc(),
+      data: this.data,
+    };
+  }
+
+  static fromDoc(doc: Document): TestModel {
+    return new TestModel(doc.data, doc.id, doc.createdAt, doc.updatedAt);
+  }
+
   get data(): string {
     return this._data;
   }
@@ -28,7 +39,7 @@ class TestModel extends BaseModel {
 @Injectable()
 class TestRepository extends BaseRepository<TestModel> {
   constructor(@Inject(MONGO_CLIENT) db: Db) {
-    super(db, TEST_BD_COLLECTION);
+    super(db, TEST_BD_COLLECTION, TestModel.fromDoc);
   }
 
   async countNumberOFDocuments(): Promise<number> {
