@@ -61,26 +61,20 @@ export class TotpStrategy extends PassportStrategy(Strategy, 'totp') {
     const internalServerErrorMessage =
       'Totp authentication strategy can only be used on end-points with authSession/:sessionId in path';
     if (!path) {
-      console.log('A');
       throw new InternalServerErrorException(internalServerErrorMessage);
     }
     const split = path.split('/');
-    console.log(path);
     const authSessionIndex = split.findIndex(
       (element) => element === 'auth-session',
     );
     if (authSessionIndex < 0) {
-      console.log('B');
-
       throw new InternalServerErrorException(internalServerErrorMessage);
     }
     const sessionId = split[authSessionIndex + 1];
     if (!sessionId) {
-      console.log('C');
       throw new InternalServerErrorException(internalServerErrorMessage);
     }
     if (!isUUID(sessionId)) {
-      console.log('D');
       throw new InternalServerErrorException(internalServerErrorMessage);
     }
     return sessionId;

@@ -1,7 +1,7 @@
 import { UsersService } from './users.service';
-import { UsersRepository } from './users.repository';
+import { UsersRepository } from '../model/users.repository';
 import { mock, mockReset } from 'jest-mock-extended';
-import { TotpService } from '../auth/totp/totp.service';
+import { TotpService } from './totp.service';
 
 describe('UsersService', () => {
   const mockUserRepository = mock<UsersRepository>();

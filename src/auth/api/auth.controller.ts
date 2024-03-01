@@ -54,8 +54,6 @@ export class AuthController {
   async getToken(
     @Request() req: RequestWithUser,
   ): Promise<TokenResponse | NextStepResponse> {
-    this.logger.debug(JSON.stringify(req.user));
-
     return this.authService.handleTokenRequest(req.user.userId);
   }
 

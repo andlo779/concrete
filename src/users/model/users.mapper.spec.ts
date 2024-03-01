@@ -1,4 +1,4 @@
-import { User } from './model/user.model';
+import { User } from './user.model';
 import { deserialize, serialize } from 'bson';
 import { UsersMapper } from './users.mapper';
 

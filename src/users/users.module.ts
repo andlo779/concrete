@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { UsersRepository } from './users.repository';
+import { UsersService } from './service/users.service';
+import { UsersRepository } from './model/users.repository';
 import { MongoModule } from '../mongo-client/mongo-module';
-import { UsersController } from './users.controller';
-import { TotpModule } from '../auth/totp/totp.module';
+import { UsersController } from './api/users.controller';
+import { TotpService } from './service/totp.service';
 
 @Module({
-  imports: [MongoModule, TotpModule],
-  providers: [UsersService, UsersRepository],
-  exports: [UsersService],
+  imports: [MongoModule],
   controllers: [UsersController],
+  providers: [UsersService, UsersRepository, TotpService],
+  exports: [UsersService, TotpService],
 })
 export class UsersModule {}

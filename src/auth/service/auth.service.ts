@@ -4,11 +4,11 @@ import {
   Logger,
   NotFoundException,
 } from '@nestjs/common';
-import { UsersService } from '../../users/users.service';
+import { UsersService } from '../../users/service/users.service';
 import * as bcrypt from 'bcrypt';
 import { AuthSessionService } from './auth-session.service';
 import { AuthSteps } from '../api/dto/next-step.response';
-import { TotpService } from '../totp/totp.service';
+import { TotpService } from '../../users/service/totp.service';
 import { TokenService } from './token.service';
 import { User } from '../model/request-with-user.model';
 
@@ -89,7 +89,6 @@ export class AuthService {
     ) {
       throw new ForbiddenException('Auth session not valid');
     }
-    //ToDo: Is this the right order here? Do I need to do some user validation?
     const user = await this.userService.findWithId(userId);
     await this.authSessionService.deleteBySessionId(sessionId);
     return {

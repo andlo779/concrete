@@ -1,8 +1,8 @@
 import { AuthService } from './auth.service';
 import { mock, mockReset } from 'jest-mock-extended';
-import { UsersService } from '../../users/users.service';
+import { UsersService } from '../../users/service/users.service';
 import { AuthSessionService } from './auth-session.service';
-import { TotpService } from '../totp/totp.service';
+import { TotpService } from '../../users/service/totp.service';
 import { TokenService } from './token.service';
 
 describe('AuthService', () => {

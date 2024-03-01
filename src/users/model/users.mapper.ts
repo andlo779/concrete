@@ -1,5 +1,5 @@
-import { User } from './model/user.model';
-import { UserResponse } from './dto/user.response';
+import { User } from './user.model';
+import { UserResponse } from '../dto/user.response';
 import { Document } from 'mongodb';
 
 export class UsersMapper {

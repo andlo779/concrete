@@ -1,5 +1,5 @@
 import { UsersController } from './users.controller';
-import { UsersService } from './users.service';
+import { UsersService } from '../service/users.service';
 import { mock, mockReset } from 'jest-mock-extended';
 
 describe('UsersController', () => {

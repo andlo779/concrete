@@ -10,8 +10,8 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { UsersService } from './users.service';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { UsersService } from '../service/users.service';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -25,13 +25,13 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { UsersMapper } from './users.mapper';
-import { UserResponse } from './dto/user.response';
-import { CreateUserRequest } from './dto/create-user.request';
-import { ChangePasswordRequest } from './dto/change-password.request';
-import { Enable2faResponse } from './dto/enable-2fa.response';
-import { SimpleErrorDto } from '../common/simple-error.dto';
-import { MultipleErrorDto } from '../common/multiple-error.dto';
+import { UsersMapper } from '../model/users.mapper';
+import { UserResponse } from '../dto/user.response';
+import { CreateUserRequest } from '../dto/create-user.request';
+import { ChangePasswordRequest } from '../dto/change-password.request';
+import { Enable2faResponse } from '../dto/enable-2fa.response';
+import { SimpleErrorDto } from '../../common/simple-error.dto';
+import { MultipleErrorDto } from '../../common/multiple-error.dto';
 
 @ApiTags('Users')
 @ApiConsumes('application/json')

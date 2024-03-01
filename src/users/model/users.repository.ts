@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { MONGO_CLIENT, MONGO_COLLECTION_USERS } from '../constants';
+import { MONGO_CLIENT, MONGO_COLLECTION_USERS } from '../../constants';
 import { Collection, Db } from 'mongodb';
-import { User } from './model/user.model';
+import { User } from './user.model';
 import { UsersMapper } from './users.mapper';
-import { RepositoryInterface } from '../repository.interface';
+import { RepositoryInterface } from '../../repository.interface';
 
 @Injectable()
 export class UsersRepository implements RepositoryInterface<User> {

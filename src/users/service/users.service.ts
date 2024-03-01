@@ -5,11 +5,11 @@ import {
   Logger,
   NotFoundException,
 } from '@nestjs/common';
-import { UsersRepository } from './users.repository';
-import { User } from './model/user.model';
+import { UsersRepository } from '../model/users.repository';
+import { User } from '../model/user.model';
 import * as bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
-import { TotpService } from '../auth/totp/totp.service';
+import { TotpService } from './totp.service';
 import { toDataURL } from 'qrcode';
 
 @Injectable()
