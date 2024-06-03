@@ -57,7 +57,7 @@
     "qrcode": "^1.5.3",
     "reflect-metadata": "^0.2.2",
     "rimraf": "^5.0.7",
-    "swagger-ui-express": "^5.0.0"
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.3.0",
