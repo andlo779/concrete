@@ -13,6 +13,7 @@ export class JwtRefreshStrategy extends PassportStrategy(
     super();
   }
 
+
   async validate(token: string): Promise<User> {
     try {
       const userId = await this.tokenService.validateRefreshToken(token);
@@ -20,7 +21,7 @@ export class JwtRefreshStrategy extends PassportStrategy(
         userId: userId,
         tokenId: token,
       };
-    } catch (e) {
+    } catch (_error) {
       throw new UnauthorizedException('Invalid token');
     }
   }

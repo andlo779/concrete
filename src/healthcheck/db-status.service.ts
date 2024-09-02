@@ -11,7 +11,7 @@ export class DbStatusService {
     try {
       await this.db.stats();
       return true;
-    } catch (error) {
+    } catch (_error) {
       this.logger.warn('Could not ping Db');
     }
     return false;

@@ -16,5 +16,7 @@
     "skipLibCheck": true,
     "noImplicitAny": true,
     "forceConsistentCasingInFileNames": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
   }
 }
