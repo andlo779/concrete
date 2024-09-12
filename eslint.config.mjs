@@ -3,7 +3,7 @@ import tslint from "typescript-eslint";
 
 export default
   tslint.config({
-    files: ["**/*.ts"],
+    files: ['**/*.ts'],
     languageOptions: {
       parser: tslint.parser,
       parserOptions: {
@@ -28,14 +28,14 @@ export default
       'unused-imports/no-unused-vars': [
         'error',
         {
-          'vars': "all",
-          'varsIgnorePattern': "^_",
-          'args': "after-used",
-          'argsIgnorePattern': "^_",
-          "caughtErrorsIgnorePattern": "^_",
+          'vars': 'all',
+          'varsIgnorePattern': '^_',
+          'args': 'after-used',
+          'argsIgnorePattern': '^_',
+          'caughtErrorsIgnorePattern':  '^_',
         },
       ],
       'unused-imports/no-unused-imports': 'error',
     },
-    ignores: ['eslint.config.js'],
+    ignores: ['eslint.config.mjs', 'node_modules/**', 'dist/**'],
   })
