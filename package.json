@@ -60,7 +60,7 @@
     "reflect-metadata": "^0.2.2",
     "rimraf": "^6.0.1",
     "swagger-ui-express": "^5.0.1",
-    "typescript-eslint": "^8.5.0"
+    "typescript-eslint": "^8.18.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.4.5",
